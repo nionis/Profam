@@ -35,7 +35,7 @@ class profanity {
 
   // I\O
   //Setters
-  setLocales(locales=[], isCustom=0, isAdd=1) {
+  setLocales(locales=[], isCustom=0, isAdd=0) {
     let self = this;
     locales = toArray(locales);
 
@@ -133,8 +133,18 @@ class profanity {
   getLocales() {
     return [...this.locales.keys()];
   }
+  getLocalesEnabled() {
+    return [...this.locales.keys()].filter((locale) => {
+      return this.locales.get(locale).enabled;
+    });
+  }
   getModes() {
     return [...this.modes.keys()];
+  }
+  getModesEnabled() {
+    return [...this.modes.keys()].filter((mode) => {
+      return this.modes.get(mode).enabled;
+    });
   }
 
 
@@ -143,8 +153,8 @@ class profanity {
     strings = toArray(strings);
 
     //Locales
-    let localesEnabled = [...this.locales.keys()].filter((mode) => {
-      return this.locales.get(mode).enabled;
+    let localesEnabled = [...this.locales.keys()].filter((locale) => {
+      return this.locales.get(locale).enabled;
     });
     let localesAllWords = localesEnabled.reduce((allLocales, locale) => {
       allLocales.push(...this.locales.get(locale).data);
