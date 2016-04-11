@@ -20,7 +20,7 @@
     "url": "https://github.com/stivennoni77/profam.git"
   },
   "scripts": {
-    "prod": "rm -rf lib && mkdir lib && webpack --config",
+    "prod": "rm -rf profam && mkdir profam && webpack --config",
     "dev": "webpack --config -w",
     "test": "npm run prod && cd tests && webpack --config && webpack-dev-server",
     "prepublish": "npm run prod"
