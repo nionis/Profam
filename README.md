@@ -1,6 +1,10 @@
 # Profam
 All in One Profanity and Spam Tool, supporting multiple languages and modes.
+
 *Atm works only if you have babel on client, compile coming soon.*
+
+## Thanks to:
+- [Shutterstock Project](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words), for provading all the bad words!
 
 ## Tools Available
 | Tool | Use | Default Status |
