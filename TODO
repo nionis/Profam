@@ -1,14 +1,7 @@
-//initialization
-{
-  localesUrlMockup: 'someurl[locale].js',
-
-  profanity: {
-    enable
-    mode
-    locale
-  },
-  spam: {
-    enable,
-    mode
-  }
-}
+-> Fix ReadMe
+-> add tests
+-> auto update languages
+-> each words own censor
+-> better backend compatibility
+-> better syntax
+-> minify, uglify, bundle
