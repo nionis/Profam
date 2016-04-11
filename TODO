@@ -1,0 +1,14 @@
+//initialization
+{
+  localesUrlMockup: 'someurl[locale].js',
+
+  profanity: {
+    enable
+    mode
+    locale
+  },
+  spam: {
+    enable,
+    mode
+  }
+}

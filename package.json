@@ -1,0 +1,43 @@
+{
+  "name": "profam",
+  "version": "1.0.0",
+  "description": "Profanity and Spam Tool, supporting multiple languages and modes.",
+  "keywords": [
+    "profanity",
+    "badwords",
+    "spam",
+    "troll",
+    "filter",
+    "sensor"
+  ],
+  "person": {
+    "name": "Steven Noni",
+    "email": "staurosnonis@gmail.com",
+    "url": "https://twitter.com/StevenNonis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stivennoni77/profam.git"
+  },
+  "scripts": {
+    "prod": "rm -rf lib && mkdir lib && webpack --config",
+    "dev": "webpack --config -w",
+    "test": "npm run prod && cd tests && webpack --config && webpack-dev-server",
+    "prepublish": "npm run prod"
+  },
+  "dependencies": {
+    "axios": "^0.9.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-plugin-array-includes": "^2.0.3",
+    "webpack": "^1.12.13",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-hot-middleware": "^2.6.4",
+    "async": "^2.0.0-rc.3"
+  },
+  "main": "source/root.js"
+}
