@@ -1,6 +1,6 @@
 # Profam
 All in One Profanity and Spam Tool, supporting multiple languages and modes.
-
+*Atm works only if you have babel on client, compile coming soon.*
 
 ## Tools Available
 | Tool | Use | Default Status |
