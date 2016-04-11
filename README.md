@@ -15,7 +15,7 @@ All in One Profanity and Spam Tool, supporting multiple languages and modes.
 ### Quick Start
 
 ```javascript
-const import profam from 'profam';
+import profam from 'profam';
 
 //Initialize
 let profam = new profam();
@@ -30,7 +30,7 @@ profam.profanity.setLocales('en');
 profam.profanity.setModes('funny');
 
 //Bad-words will be replaced with funny words using funny mode.
-profam.process('Go to hell!'); // returns-> Go to unicorn.
+profam.process('Go to hell!'); // returns-> Go to unicorn!.
 
 
 // ---> Done! Now bad-words in english will be censored! Lets say you want to add a custom language:
