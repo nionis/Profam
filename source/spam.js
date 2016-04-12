@@ -1,9 +1,11 @@
 import logger from './logger.js';
 
 class spam {
-  constructor(options) {
+  constructor(env) {
+    this.env       = env;
+
     this.enable    = 0;
-    this.frequency = 4;
+    this.frequency = 3;
   }
 
   // I\O

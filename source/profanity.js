@@ -3,11 +3,13 @@ import logger      from './logger.js';
 import { toArray, randomRange, whatIs } from './utils.js';
 
 class profanity {
-  constructor() {
+  constructor(env) {
+    this.env     = env;
+
     this.enable  = 1;                                                                         //  1, 0  : Enabled or Disabled
 
     this.locales = new Map();                                                                 // Can check modes available, enabled
-    this.localesUrlMockup = null;                                                             // Url Mockup of locales location for axio.get
+    this.localesDir = null;                                                                   // Url Mockup of locales location for axio.get
 
     this.modes   = new Map([                                                                  //  Can check modes available, enabled
       ['choice'            , { 'enabled': 0 , data: [] }],
@@ -27,14 +29,45 @@ class profanity {
 
   // Utils
   makeUrl(locale=null) {
-    if (this.localesUrlMockup !== null) {
-      return this.localesUrlMockup.replace(/\[locale\]/g, locale);
+    if (this.localesDir !== null) {
+      return this.localesDir.replace(/\[locale\]/g, locale);
     } else { logger('Locale provided is undefined or null, Usage: .makeUrl(<string>)'); }
   }
+
+  // updateLocalesFromDir(dir) {
+  //   let path = require('path'),
+  //         fs = require('fs');
+  //
+  //   let files = fs.readdirSync(dir);
+  //   files.forEach((file) => {
+  //     let options = this.locales.get(file);
+  //
+  //     try {
+  //       options.data = fs.readFileSync(`${dir}/${file}`, 'utf8');
+  //       this.locales.set(file, options);
+  //     } catch (err) {
+  //       logger(`Couldn't read ${file}`);
+  //     }
+  //   });
+  //
+  //   logger('Updated Locales');
+  // }
 
 
   // I\O
   //Setters
+
+  //Set locales dir
+  setLocalesDir(dir=null) {
+    if (dir !== null) {
+      this.localesDir = dir;
+
+      // if (this.env == 'server') {
+      //   this.updateLocalesFromDir(dir);
+      // }
+    } else { logger('Invalid locales dir provided'); }
+  }
+
   setLocales(locales=[], isCustom=0, isAdd=0) {
     let self = this;
     locales = toArray(locales);

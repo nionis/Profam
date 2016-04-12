@@ -1,13 +1,14 @@
 import profanity   from './profanity.js';
 import spam        from './spam.js';
-import { toArray, arrRemove } from './utils.js';
 import logger      from './logger.js';
 
 module.exports = class {
   constructor(options=null) {
-    //Initialize Modules
-    this.profanity = new profanity();
-    this.spam      = new spam();
+    //Initialization
+    this.env       = typeof process === 'undefined' ? 'browser' : 'server';
+
+    this.profanity = new profanity(this.env);
+    this.spam      = new spam(this.env);
 
     //Update Options with options provided in initialization.
     if(options !== null) {

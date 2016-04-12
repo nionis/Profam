@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2c3a22f5df36c657db35"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ed9d30f3e41ec4bc6602"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -583,7 +583,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -594,8 +594,6 @@
 	var _spam = __webpack_require__(21);
 
 	var _spam2 = _interopRequireDefault(_spam);
-
-	var _utils = __webpack_require__(5);
 
 	var _logger = __webpack_require__(2);
 
@@ -611,9 +609,11 @@
 
 	    _classCallCheck(this, _class);
 
-	    //Initialize Modules
-	    this.profanity = new _profanity2.default();
-	    this.spam = new _spam2.default();
+	    //Initialization
+	    this.env = typeof process === 'undefined' ? 'browser' : 'server';
+
+	    this.profanity = new _profanity2.default(this.env);
+	    this.spam = new _spam2.default(this.env);
 
 	    //Update Options with options provided in initialization.
 	    if (options !== null) {
@@ -661,6 +661,7 @@
 
 	  return _class;
 	}();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 1 */
@@ -1120,49 +1121,98 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	'use strict';
+	// shim for using process in browser
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var arrRemove = function arrRemove(arr, item) {
-	  while (arr.indexOf(item) !== -1) {
-	    var index = arr.indexOf(item);
-	    arr = arr.splice(index, 1);
-	  }
-	  return arr;
+	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = setTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    clearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        setTimeout(drainQueue, 0);
+	    }
 	};
 
-	var whatIs = function whatIs() {
-	  var item = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
 
-	  var def = 'Null';
+	function noop() {}
 
-	  if (item == null) {
-	    return def;
-	  }
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
 
-	  var stringify = item.constructor.toString();
-
-	  return stringify == Array.toString() ? 'Array' : stringify == String.toString() ? 'String' : stringify == Number.toString() ? 'Number' : stringify == Object.toString() ? 'Object' : stringify == Function.toString() ? 'Function' : def;
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
 	};
 
-	var toArray = function toArray(item) {
-	  var constructor = whatIs(item);
-	  return constructor == 'Array' ? item : constructor == 'Number' || constructor == 'String' ? [item] : null;
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
 	};
+	process.umask = function() { return 0; };
 
-	var randomRange = function randomRange() {
-	  var min = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-	  var max = arguments.length <= 1 || arguments[1] === undefined ? 101 : arguments[1];
-
-	  return Math.floor(Math.random() * (max - min) + min);
-	};
-
-	exports.arrRemove = arrRemove;
-	exports.toArray = toArray;
-	exports.randomRange = randomRange;
-	exports.whatIs = whatIs;
 
 /***/ },
 /* 6 */
@@ -1393,7 +1443,7 @@
 	};
 
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 10 */
@@ -1865,7 +1915,7 @@
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var _utils = __webpack_require__(5);
+	var _utils = __webpack_require__(22);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1874,13 +1924,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var profanity = function () {
-	  function profanity() {
+	  function profanity(env) {
 	    _classCallCheck(this, profanity);
+
+	    this.env = env;
 
 	    this.enable = 1; //  1, 0  : Enabled or Disabled
 
 	    this.locales = new Map(); // Can check modes available, enabled
-	    this.localesUrlMockup = null; // Url Mockup of locales location for axio.get
+	    this.localesDir = null; // Url Mockup of locales location for axio.get
 
 	    this.modes = new Map([//  Can check modes available, enabled
 	    ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['asterisks-obscure', { 'enabled': 0 }], ['asterisks-full', { 'enabled': 0 }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['bleep', { 'enabled': 0 }]]);
@@ -1896,16 +1948,52 @@
 	    value: function makeUrl() {
 	      var locale = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	      if (this.localesUrlMockup !== null) {
-	        return this.localesUrlMockup.replace(/\[locale\]/g, locale);
+	      if (this.localesDir !== null) {
+	        return this.localesDir.replace(/\[locale\]/g, locale);
 	      } else {
 	        (0, _logger2.default)('Locale provided is undefined or null, Usage: .makeUrl(<string>)');
 	      }
 	    }
 
+	    // updateLocalesFromDir(dir) {
+	    //   let path = require('path'),
+	    //         fs = require('fs');
+	    //
+	    //   let files = fs.readdirSync(dir);
+	    //   files.forEach((file) => {
+	    //     let options = this.locales.get(file);
+	    //
+	    //     try {
+	    //       options.data = fs.readFileSync(`${dir}/${file}`, 'utf8');
+	    //       this.locales.set(file, options);
+	    //     } catch (err) {
+	    //       logger(`Couldn't read ${file}`);
+	    //     }
+	    //   });
+	    //
+	    //   logger('Updated Locales');
+	    // }
+
 	    // I\O
 	    //Setters
 
+	    //Set locales dir
+
+	  }, {
+	    key: 'setLocalesDir',
+	    value: function setLocalesDir() {
+	      var dir = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+	      if (dir !== null) {
+	        this.localesDir = dir;
+
+	        // if (this.env == 'server') {
+	        //   this.updateLocalesFromDir(dir);
+	        // }
+	      } else {
+	          (0, _logger2.default)('Invalid locales dir provided');
+	        }
+	    }
 	  }, {
 	    key: 'setLocales',
 	    value: function setLocales() {
@@ -1914,7 +2002,7 @@
 	      var _this = this;
 
 	      var isCustom = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-	      var isAdd = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+	      var isAdd = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
 	      var self = this;
 	      locales = (0, _utils.toArray)(locales);
@@ -2048,9 +2136,27 @@
 	      return [].concat(_toConsumableArray(this.locales.keys()));
 	    }
 	  }, {
+	    key: 'getLocalesEnabled',
+	    value: function getLocalesEnabled() {
+	      var _this3 = this;
+
+	      return [].concat(_toConsumableArray(this.locales.keys())).filter(function (locale) {
+	        return _this3.locales.get(locale).enabled;
+	      });
+	    }
+	  }, {
 	    key: 'getModes',
 	    value: function getModes() {
 	      return [].concat(_toConsumableArray(this.modes.keys()));
+	    }
+	  }, {
+	    key: 'getModesEnabled',
+	    value: function getModesEnabled() {
+	      var _this4 = this;
+
+	      return [].concat(_toConsumableArray(this.modes.keys())).filter(function (mode) {
+	        return _this4.modes.get(mode).enabled;
+	      });
 	    }
 
 	    //Profanity behavior
@@ -2058,24 +2164,24 @@
 	  }, {
 	    key: 'proceed',
 	    value: function proceed() {
-	      var _this3 = this;
+	      var _this5 = this;
 
 	      var strings = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 
 	      strings = (0, _utils.toArray)(strings);
 
 	      //Locales
-	      var localesEnabled = [].concat(_toConsumableArray(this.locales.keys())).filter(function (mode) {
-	        return _this3.locales.get(mode).enabled;
+	      var localesEnabled = [].concat(_toConsumableArray(this.locales.keys())).filter(function (locale) {
+	        return _this5.locales.get(locale).enabled;
 	      });
 	      var localesAllWords = localesEnabled.reduce(function (allLocales, locale) {
-	        allLocales.push.apply(allLocales, _toConsumableArray(_this3.locales.get(locale).data));
+	        allLocales.push.apply(allLocales, _toConsumableArray(_this5.locales.get(locale).data));
 	        return allLocales;
 	      }, []);
 
 	      //Modes
 	      var modesEnabled = [].concat(_toConsumableArray(this.modes.keys())).filter(function (mode) {
-	        return _this3.modes.get(mode).enabled;
+	        return _this5.modes.get(mode).enabled;
 	      });
 
 	      //Search each word
@@ -2091,12 +2197,12 @@
 	                switch (modeElected) {
 	                  case 'choice':
 	                    {
-	                      var list = _this3.modes.get('choice').data;
+	                      var list = _this5.modes.get('choice').data;
 	                      return list[(0, _utils.randomRange)(0, list.length)] || '';
 	                    }
 	                  case 'funny':
 	                    {
-	                      var _list = _this3.modes.get('funny').data;
+	                      var _list = _this5.modes.get('funny').data;
 	                      return _list[(0, _utils.randomRange)(0, _list.length)] || '';
 	                    }
 	                  case 'spaces':
@@ -2146,7 +2252,7 @@
 
 	              string = function () {
 	                var reqexp = new RegExp(word, 'gi');
-	                if (_this3.wholeWord) {
+	                if (_this5.wholeWord) {
 	                  reqexp = new RegExp('\\b' + word + '\\b', 'gi');
 	                }
 
@@ -2192,11 +2298,13 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var spam = function () {
-	  function spam(options) {
+	  function spam(env) {
 	    _classCallCheck(this, spam);
 
+	    this.env = env;
+
 	    this.enable = 0;
-	    this.frequency = 4;
+	    this.frequency = 3;
 	  }
 
 	  // I\O
@@ -2266,98 +2374,49 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	// shim for using process in browser
+	'use strict';
 
-	var process = module.exports = {};
-	var queue = [];
-	var draining = false;
-	var currentQueue;
-	var queueIndex = -1;
-
-	function cleanUpNextTick() {
-	    draining = false;
-	    if (currentQueue.length) {
-	        queue = currentQueue.concat(queue);
-	    } else {
-	        queueIndex = -1;
-	    }
-	    if (queue.length) {
-	        drainQueue();
-	    }
-	}
-
-	function drainQueue() {
-	    if (draining) {
-	        return;
-	    }
-	    var timeout = setTimeout(cleanUpNextTick);
-	    draining = true;
-
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        while (++queueIndex < len) {
-	            if (currentQueue) {
-	                currentQueue[queueIndex].run();
-	            }
-	        }
-	        queueIndex = -1;
-	        len = queue.length;
-	    }
-	    currentQueue = null;
-	    draining = false;
-	    clearTimeout(timeout);
-	}
-
-	process.nextTick = function (fun) {
-	    var args = new Array(arguments.length - 1);
-	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
-	            args[i - 1] = arguments[i];
-	        }
-	    }
-	    queue.push(new Item(fun, args));
-	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var arrRemove = function arrRemove(arr, item) {
+	  while (arr.indexOf(item) !== -1) {
+	    var index = arr.indexOf(item);
+	    arr = arr.splice(index, 1);
+	  }
+	  return arr;
 	};
 
-	// v8 likes predictible objects
-	function Item(fun, array) {
-	    this.fun = fun;
-	    this.array = array;
-	}
-	Item.prototype.run = function () {
-	    this.fun.apply(null, this.array);
-	};
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
+	var whatIs = function whatIs() {
+	  var item = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	function noop() {}
+	  var def = 'Null';
 
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
+	  if (item == null) {
+	    return def;
+	  }
 
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
+	  var stringify = item.constructor.toString();
+
+	  return stringify == Array.toString() ? 'Array' : stringify == String.toString() ? 'String' : stringify == Number.toString() ? 'Number' : stringify == Object.toString() ? 'Object' : stringify == Function.toString() ? 'Function' : def;
 	};
 
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
+	var toArray = function toArray(item) {
+	  var constructor = whatIs(item);
+	  return constructor == 'Array' ? item : constructor == 'Number' || constructor == 'String' ? [item] : null;
 	};
-	process.umask = function() { return 0; };
 
+	var randomRange = function randomRange() {
+	  var min = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var max = arguments.length <= 1 || arguments[1] === undefined ? 101 : arguments[1];
+
+	  return Math.floor(Math.random() * (max - min) + min);
+	};
+
+	exports.arrRemove = arrRemove;
+	exports.toArray = toArray;
+	exports.randomRange = randomRange;
+	exports.whatIs = whatIs;
 
 /***/ }
 /******/ ]);
