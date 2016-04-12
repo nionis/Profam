@@ -193,7 +193,6 @@ class profanity {
       return this.modes.get(mode).enabled;
     });
 
-    console.log('modes', modesEnabled);
     let processed = strings.map((string) => {
       return modesEnabled.map((mode) => {
         let toProcess = string;

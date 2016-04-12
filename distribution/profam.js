@@ -267,7 +267,6 @@ var profanity = function () {
         return _this5.modes.get(mode).enabled;
       });
 
-      console.log('modes', modesEnabled);
       var processed = strings.map(function (string) {
         return modesEnabled.map(function (mode) {
           var toProcess = string;
@@ -450,46 +449,52 @@ var spam = function () {
 
   }, {
     key: 'proceed',
-    value: function proceed(str) {
+    value: function proceed() {
       var _this = this;
 
-      var frequencyCheck = function frequencyCheck(str) {
-        var times = _this.frequency;
+      var strings = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 
-        var _loop = function _loop(i) {
-          var reverted = str.split('').reverse();
-          var newArr = [];
+      strings = toArray(strings);
 
-          reverted.forEach(function (char, i1) {
-            var bundle = makeBundle(reverted, i1, times);
-            var future = makeBundle(reverted, i1 + times, times);
+      return strings.map(function (str) {
+        var frequencyCheck = function frequencyCheck(str) {
+          var times = _this.frequency;
 
-            if (bundle !== future) {
-              newArr.push(char);
-            }
-          });
-          str = newArr.reverse().join('');
+          var _loop = function _loop(i) {
+            var reverted = str.split('').reverse();
+            var newArr = [];
+
+            reverted.forEach(function (char, i1) {
+              var bundle = makeBundle(reverted, i1, times);
+              var future = makeBundle(reverted, i1 + times, times);
+
+              if (bundle !== future) {
+                newArr.push(char);
+              }
+            });
+            str = newArr.reverse().join('');
+          };
+
+          for (var i = 0; i < times; i++) {
+            _loop(i);
+          }
+
+          return str;
         };
 
-        for (var i = 0; i < times; i++) {
-          _loop(i);
-        }
+        var makeBundle = function makeBundle(arr, i, times) {
+          var bundleStr = [];
 
-        return str;
-      };
+          for (var c = 0; c < times; c++) {
+            bundleStr.push(arr[i + c] || '');
+          }
 
-      var makeBundle = function makeBundle(arr, i, times) {
-        var bundleStr = [];
+          bundleStr = bundleStr.join('');
+          return bundleStr;
+        };
 
-        for (var c = 0; c < times; c++) {
-          bundleStr.push(arr[i + c] || '');
-        }
-
-        bundleStr = bundleStr.join('');
-        return bundleStr;
-      };
-
-      return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
+        return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
+      });
     }
   }]);
 

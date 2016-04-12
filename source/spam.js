@@ -10,39 +10,43 @@ class spam {
   }
 
   // Spam functionality
-  proceed(str) {
-    let frequencyCheck = (str) => {
-      let times = this.frequency;
+  proceed(strings=[]) {
+    strings = toArray(strings);
 
-      for (let i=0; i<times; i++) {
-      	let reverted = str.split('').reverse();
-      	let newArr = [];
+    return strings.map((str) => {
+      let frequencyCheck = (str) => {
+        let times = this.frequency;
 
-        reverted.forEach(function(char, i1) {
-          let bundle = makeBundle(reverted, i1				, times);
-          let future = makeBundle(reverted, i1 + times, times);
+        for (let i=0; i<times; i++) {
+          let reverted = str.split('').reverse();
+          let newArr = [];
 
-          if (bundle !== future) {
-            newArr.push(char);
-          }
-      	});
-        str = newArr.reverse().join('');
-      }
+          reverted.forEach(function(char, i1) {
+            let bundle = makeBundle(reverted, i1				, times);
+            let future = makeBundle(reverted, i1 + times, times);
 
-    	return str;
-    };
+            if (bundle !== future) {
+              newArr.push(char);
+            }
+          });
+          str = newArr.reverse().join('');
+        }
 
-    let makeBundle = (arr, i, times) => {
-    	let bundleStr = [];
+        return str;
+      };
 
-      for (let c=0; c<times; c++) {
-      	bundleStr.push((arr[i+c] || ''));
-      }
+      let makeBundle = (arr, i, times) => {
+        let bundleStr = [];
 
-      bundleStr = bundleStr.join('');
-     	return bundleStr;
-    };
+        for (let c=0; c<times; c++) {
+          bundleStr.push((arr[i+c] || ''));
+        }
 
-    return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
+        bundleStr = bundleStr.join('');
+        return bundleStr;
+      };
+
+      return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
+    });
   }
 };
