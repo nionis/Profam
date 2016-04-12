@@ -24,8 +24,11 @@ import profam from 'profam';
 //Initialize
 let profam = new profam();
 
-//Assuming you are hosting languages on your own, you will need to specify a get-url mockup.
-profam.profanity.localesUrlMockup = '/locales/[locale].json';
+//(server) Changing localesDir will update locales with the contents of the dir
+profam.profanity.setLocalesDir('/locales/');
+//OR
+//(client) Assuming you are hosting languages on your own, you will need to specify a get-url mockup.
+profam.profanity.setLocalesDir('/locales/[locale].json');
 
 //Now that you have a get-url mockup you can start adding languages, and profam will take care of the rest.
 profam.profanity.setLocales('en');
@@ -53,7 +56,7 @@ profam.profanity.addWords('customLanguage', ['badword']);
 |	Method	|	Parameters	|	Use	|	Default	|
 |	-----	|	-----	|	-----	|	-----	|
 |	profanity.enable =	|	Boolean	|	Enable or disable profanity	|	TRUE	|
-|	profanity.localesUrlMockup =	|	String -> must include [locale]	|	Replaces [locale] with the language you want to download. Ex: example.com/locales/[locale].js	|	null	|
+|	profanity.localesDir =	|	String -> must include [locale]	|	Replaces [locale] with the language you want to download. Ex: example.com/locales/[locale].js	|	null	|
 |	profanity.setLocales(\<string/array\>)	|	<ol><li>Locale(s)</li></ol>	|	Add the languages you wonna look for bad-words	|		|
 |	profanity.addWords(\<string\>, \<array\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol>	|	Add new words in selected locale.	|		|
 |	profanity.removeWords(\<string\>, \<array\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol>	|	Remove words from locale.	|		|
