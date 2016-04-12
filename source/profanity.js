@@ -1,11 +1,5 @@
-import axios       from 'axios';
-import logger      from './logger.js';
-import { toArray, randomRange, whatIs } from './utils.js';
-
 class profanity {
-  constructor(env) {
-    this.env     = env;
-
+  constructor() {
     this.enable  = 1;                                                                         //  1, 0  : Enabled or Disabled
 
     this.locales = new Map();                                                                 // Can check modes available, enabled
@@ -262,5 +256,3 @@ class profanity {
     return whatIsReturn == 'Array' && toReturn.length == 1 ? toReturn[0] : toReturn;
   }
 };
-
-export default profanity;

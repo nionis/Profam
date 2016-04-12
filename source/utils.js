@@ -32,4 +32,8 @@ let randomRange = (min=0, max=101) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-export { arrRemove, toArray, randomRange, whatIs };
+let logger = (...args) => {
+  for (let argument of args) {
+    console.log('Profam:', argument);
+  }
+};

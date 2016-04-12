@@ -1,9 +1,5 @@
-import logger from './logger.js';
-
 class spam {
-  constructor(env) {
-    this.env       = env;
-
+  constructor() {
     this.enable    = 0;
     this.frequency = 3;
   }
@@ -50,5 +46,3 @@ class spam {
     return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
   }
 };
-
-export default spam;

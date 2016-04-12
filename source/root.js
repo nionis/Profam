@@ -1,14 +1,11 @@
-import profanity   from './profanity.js';
-import spam        from './spam.js';
-import logger      from './logger.js';
+const axios = require('axios');
+      env   = typeof process === 'undefined' ? 'browser' : 'server';
 
 module.exports = class {
   constructor(options=null) {
     //Initialization
-    this.env       = typeof process === 'undefined' ? 'browser' : 'server';
-
-    this.profanity = new profanity(this.env);
-    this.spam      = new spam(this.env);
+    this.profanity = new profanity();
+    this.spam      = new spam();
 
     //Update Options with options provided in initialization.
     if(options !== null) {
