@@ -6,11 +6,11 @@ class profanity {
     this.localesDir = null;                                                                   // Url Mockup of locales location for axio.get
 
     this.modes   = new Map([                                                                  //  Can check modes available, enabled
+      ['asterisks-obscure' , { 'enabled': 1 }],
+      ['asterisks-full'    , { 'enabled': 0 }],
       ['choice'            , { 'enabled': 0 , data: [] }],
       ['funny'             , { 'enabled': 0 , data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }],
       ['grawlix'           , { 'enabled': 0 }],
-      ['asterisks-obscure' , { 'enabled': 0 }],
-      ['asterisks-full'    , { 'enabled': 0 }],
       ['grawlix'           , { 'enabled': 0 }],
       ['spaces'            , { 'enabled': 0 }],
       ['black'             , { 'enabled': 0 }],
@@ -193,66 +193,67 @@ class profanity {
       return this.modes.get(mode).enabled;
     });
 
-    //Search each word
-    let toReturn = strings.map((string) => {
-      let modeElected = modesEnabled[randomRange(0, modesEnabled.length)] || 'spaces';
+    console.log('modes', modesEnabled);
+    let processed = strings.map((string) => {
+      return modesEnabled.map((mode) => {
+        let toProcess = string;
 
-      //localesAllWords, modeElected, string
-      localesAllWords.forEach((word) => {
-        if(string.includes(word)) {
-          let wordLength = word.length;
-          let replaceStr = (() => {
-            switch (modeElected) {
-              case 'choice': {
-                let list = this.modes.get('choice').data;
-                return list[randomRange(0, list.length)] || '';
+        localesAllWords.forEach((word) => {
+          if(toProcess.includes(word)) {
+            let wordLength = word.length;
+            let replaceStr = (() => {
+              switch (mode) {
+                case 'choice': {
+                  let list = this.modes.get('choice').data;
+                  return list[randomRange(0, list.length)] || '';
+                }
+                case 'funny': {
+                  let list = this.modes.get('funny').data;
+                  return list[randomRange(0, list.length)] || '';
+                }
+                case 'spaces': {
+                  return ' '.repeat(wordLength);
+                }
+                case 'black': {
+                  return '&#9632;'.repeat(wordLength);
+                }
+                case 'asterisks-full': {
+                  return '*'.repeat(wordLength);
+                }
+                case 'asterisks-obscure': {
+                  return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
+                }
+                case 'bleep': {
+                  return 'BLEEP';
+                }
+                case 'grawlix': {
+                  let grawlixChars = ['!','@','#','$','%','&','*'];
+                  return word.split('').map((char) => { return grawlixChars[randomRange(0, grawlixChars.length)]; }).join('');
+                }
+                case 'hide': {
+                  return '';
+                }
+                //asterisks-obscure
+                default: {
+                  return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
+                }
               }
-              case 'funny': {
-                let list = this.modes.get('funny').data;
-                return list[randomRange(0, list.length)] || '';
-              }
-              case 'spaces': {
-                return ' '.repeat(wordLength);
-              }
-              case 'black': {
-                return '&#9632;'.repeat(wordLength);
-              }
-              case 'asterisks-full': {
-                return '*'.repeat(wordLength);
-              }
-              case 'asterisks-obscure': {
-                return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
-              }
-              case 'bleep': {
-                return 'BLEEP';
-              }
-              case 'grawlix': {
-                let grawlixChars = ['!','@','#','$','%','&','*'];
-                return word.split('').map((char) => { return grawlixChars[randomRange(0, grawlixChars.length)]; }).join('');
-              }
-              case 'hide': {
-                return '';
-              }
-              //asterisks-obscure
-              default: {
-                return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
-              }
-            }
-          })();
+            })();
 
-          string = (() => {
-            let reqexp = new RegExp(word, 'gi');
-            if(this.wholeWord) { reqexp =  new RegExp('\\b'+ word + '\\b', 'gi'); }
+            toProcess = (() => {
+              let reqexp = new RegExp(word, 'gi');
+              if(this.wholeWord) { reqexp =  new RegExp('\\b'+ word + '\\b', 'gi'); }
 
-            return string.replace(reqexp, replaceStr);
-          })();
-        }
+              return toProcess.replace(reqexp, replaceStr);
+            })();
+          }
+        });
+
+        return toProcess;
       });
-
-      return string;
     });
 
-    let whatIsReturn = whatIs(toReturn);
-    return whatIsReturn == 'Array' && toReturn.length == 1 ? toReturn[0] : toReturn;
+    let whatIsReturn = whatIs(processed);
+    return whatIsReturn == 'Array' && processed.length == 1 ? processed[0] : processed;
   }
 };

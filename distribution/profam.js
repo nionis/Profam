@@ -18,7 +18,7 @@ var profanity = function () {
     this.localesDir = null; // Url Mockup of locales location for axio.get
 
     this.modes = new Map([//  Can check modes available, enabled
-    ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['asterisks-obscure', { 'enabled': 0 }], ['asterisks-full', { 'enabled': 0 }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['bleep', { 'enabled': 0 }]]);
+    ['asterisks-obscure', { 'enabled': 1 }], ['asterisks-full', { 'enabled': 0 }], ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['bleep', { 'enabled': 0 }]]);
 
     this.wholeWord = 0;
   }
@@ -267,89 +267,90 @@ var profanity = function () {
         return _this5.modes.get(mode).enabled;
       });
 
-      //Search each word
-      var toReturn = strings.map(function (string) {
-        var modeElected = modesEnabled[randomRange(0, modesEnabled.length)] || 'spaces';
+      console.log('modes', modesEnabled);
+      var processed = strings.map(function (string) {
+        return modesEnabled.map(function (mode) {
+          var toProcess = string;
 
-        //localesAllWords, modeElected, string
-        localesAllWords.forEach(function (word) {
-          if (string.indexOf(word) !== -1) {
-            (function () {
-              var wordLength = word.length;
-              var replaceStr = function () {
-                switch (modeElected) {
-                  case 'choice':
-                    {
-                      var list = _this5.modes.get('choice').data;
-                      return list[randomRange(0, list.length)] || '';
-                    }
-                  case 'funny':
-                    {
-                      var _list = _this5.modes.get('funny').data;
-                      return _list[randomRange(0, _list.length)] || '';
-                    }
-                  case 'spaces':
-                    {
-                      return ' '.repeat(wordLength);
-                    }
-                  case 'black':
-                    {
-                      return '&#9632;'.repeat(wordLength);
-                    }
-                  case 'asterisks-full':
-                    {
-                      return '*'.repeat(wordLength);
-                    }
-                  case 'asterisks-obscure':
-                    {
-                      return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
-                    }
-                  case 'bleep':
-                    {
-                      return 'BLEEP';
-                    }
-                  case 'grawlix':
-                    {
-                      var _ret2 = function () {
-                        var grawlixChars = ['!', '@', '#', '$', '%', '&', '*'];
-                        return {
-                          v: word.split('').map(function (char) {
-                            return grawlixChars[randomRange(0, grawlixChars.length)];
-                          }).join('')
-                        };
-                      }();
+          localesAllWords.forEach(function (word) {
+            if (toProcess.indexOf(word) !== -1) {
+              (function () {
+                var wordLength = word.length;
+                var replaceStr = function () {
+                  switch (mode) {
+                    case 'choice':
+                      {
+                        var list = _this5.modes.get('choice').data;
+                        return list[randomRange(0, list.length)] || '';
+                      }
+                    case 'funny':
+                      {
+                        var _list = _this5.modes.get('funny').data;
+                        return _list[randomRange(0, _list.length)] || '';
+                      }
+                    case 'spaces':
+                      {
+                        return ' '.repeat(wordLength);
+                      }
+                    case 'black':
+                      {
+                        return '&#9632;'.repeat(wordLength);
+                      }
+                    case 'asterisks-full':
+                      {
+                        return '*'.repeat(wordLength);
+                      }
+                    case 'asterisks-obscure':
+                      {
+                        return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
+                      }
+                    case 'bleep':
+                      {
+                        return 'BLEEP';
+                      }
+                    case 'grawlix':
+                      {
+                        var _ret2 = function () {
+                          var grawlixChars = ['!', '@', '#', '$', '%', '&', '*'];
+                          return {
+                            v: word.split('').map(function (char) {
+                              return grawlixChars[randomRange(0, grawlixChars.length)];
+                            }).join('')
+                          };
+                        }();
 
-                      if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
-                    }
-                  case 'hide':
-                    {
-                      return '';
-                    }
-                  //asterisks-obscure
-                  default:
-                    {
-                      return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
-                    }
-                }
-              }();
+                        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+                      }
+                    case 'hide':
+                      {
+                        return '';
+                      }
+                    //asterisks-obscure
+                    default:
+                      {
+                        return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
+                      }
+                  }
+                }();
 
-              string = function () {
-                var reqexp = new RegExp(word, 'gi');
-                if (_this5.wholeWord) {
-                  reqexp = new RegExp('\\b' + word + '\\b', 'gi');
-                }
+                toProcess = function () {
+                  var reqexp = new RegExp(word, 'gi');
+                  if (_this5.wholeWord) {
+                    reqexp = new RegExp('\\b' + word + '\\b', 'gi');
+                  }
 
-                return string.replace(reqexp, replaceStr);
-              }();
-            })();
-          }
+                  return toProcess.replace(reqexp, replaceStr);
+                }();
+              })();
+            }
+          });
+
+          return toProcess;
         });
-
-        return string;
       });
 
-      var whatIsReturn = whatIs(toReturn);
-      return whatIsReturn == 'Array' && toReturn.length == 1 ? toReturn[0] : toReturn;
+      var whatIsReturn = whatIs(processed);
+      return whatIsReturn == 'Array' && processed.length == 1 ? processed[0] : processed;
     }
   }]);
 

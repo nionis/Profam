@@ -1,6 +1,6 @@
 {
   "name": "profam",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Profanity and Spam Tool, supporting multiple languages and modes.",
   "keywords": [
     "profanity",
@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "babel source --out-file distribution/profam.js",
+    "buildw" : "babel -w source --out-file distribution/profam.js",
     "prepublish": "npm run build"
   },
   "dependencies": {
