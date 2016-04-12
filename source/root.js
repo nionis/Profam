@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('axios'),
       env   = typeof process === 'undefined' ? 'browser' : 'server';
 
 module.exports = class {
