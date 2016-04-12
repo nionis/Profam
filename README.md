@@ -56,7 +56,7 @@ profam.profanity.addWords('customLanguage', ['badword']);
 |	Method	|	Parameters	|	Use	|	Default	|
 |	-----	|	-----	|	-----	|	-----	|
 |	profanity.enable =	|	Boolean	|	Enable or disable profanity	|	TRUE	|
-|	profanity.localesDir =	|	String -> must include [locale]	|	Replaces [locale] with the language you want to download. Ex: example.com/locales/[locale].js	|	null	|
+|	profanity.setLocalesDir =	|	String	|	Replaces [locale] with the language you want to download. Ex: example.com/locales/[locale].js	|	null	|
 |	profanity.setLocales(\<string/array\>)	|	<ol><li>Locale(s)</li></ol>	|	Add the languages you wonna look for bad-words	|		|
 |	profanity.addWords(\<string\>, \<array\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol>	|	Add new words in selected locale.	|		|
 |	profanity.removeWords(\<string\>, \<array\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol>	|	Remove words from locale.	|		|
