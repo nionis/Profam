@@ -9,4 +9,4 @@ x.profanity.addWords('custom', ['pineapples', 'olives']);
 
 x.profanity.setModes(['asterisks-full', 'funny']);
 
-console.log(x.proceed('I dont want pineapples or olives in my pizza.'));
+console.log(x.proceed('I dont want PINEAPPLES or olives in my pizza.'));
