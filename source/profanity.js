@@ -199,7 +199,8 @@ class profanity {
         let toProcess = string;
 
         localesAllWords.forEach((word) => {
-          if(toProcess.match(new RegExp(word, 'gi')).length > 0) {
+          let isIncluded = toProcess.match(new RegExp(word, 'gi'));
+          if(isIncluded !== null && isIncluded.length > 0) {
             let wordLength = word.length;
             let replaceStr = (() => {
               switch (mode) {
