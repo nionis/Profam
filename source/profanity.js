@@ -128,11 +128,12 @@ class profanity {
     return options.data;
   }
 
-  addWords(locale=null, words=[]) {
+  addWords(locale=null, words=[], isAdd=true) {
     words = toArray(words);
 
     if (this.locales.has(locale)) {
       let options = this.locales.get(locale);
+          if(!isAdd) { options.data = []; }
           options.data.push(...words);
           options.data = [...new Set(options.data)];
 

@@ -173,6 +173,7 @@ var profanity = function () {
     value: function addWords() {
       var locale = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
       var words = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+      var isAdd = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
 
       words = toArray(words);
 
@@ -180,6 +181,9 @@ var profanity = function () {
         var _options$data2;
 
         var options = this.locales.get(locale);
+        if (!isAdd) {
+          options.data = [];
+        }
         (_options$data2 = options.data).push.apply(_options$data2, _toConsumableArray(words));
         options.data = [].concat(_toConsumableArray(new Set(options.data)));
 

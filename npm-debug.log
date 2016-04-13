@@ -1,0 +1,116 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\Programs\\NodeJS\\node.exe',
+1 verbose cli   'C:\\Users\\Steve\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@3.8.0
+3 info using node@v4.2.4
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: 'D:\\Work\\Profam',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package.tgz not in flight; packing
+9 verbose correctMkdir C:\Users\Steve\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+10 info lifecycle profam@1.0.6~prepublish: profam@1.0.6
+11 verbose lifecycle profam@1.0.6~prepublish: unsafe-perm in lifecycle true
+12 verbose lifecycle profam@1.0.6~prepublish: PATH: C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;D:\Work\Profam\node_modules\.bin;D:\Programs\NodeJS;D:\Programs\Cygwin\usr\local\bin;D:\Programs\Cygwin\bin;D:\Programs\Python;D:\Programs\Python\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client;C:\Program Files\Intel\iCLS Client;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Common Files\Autodesk Shared;C:\Program Files (x86)\Autodesk\Backburner;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\Programs\NodeJS;D:\Programs\Skype\Phone;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Users\Steve\AppData\Local\atom\app-1.5.3;D:\Programs\Cygwin\bin;C:\Users\Steve\AppData\Local\Programs\Python\Launcher;C:\Users\Steve\AppData\Roaming\npm;C:\Users\Steve\AppData\Local\atom\bin;D:\Programs\Cygwin\lib\lapack
+13 verbose lifecycle profam@1.0.6~prepublish: CWD: D:\Work\Profam
+14 silly lifecycle profam@1.0.6~prepublish: Args: [ '/d /s /c', 'npm run build' ]
+15 silly lifecycle profam@1.0.6~prepublish: Returned: code: 0  signal: null
+16 verbose tar pack [ 'C:\\Users\\Steve\\AppData\\Roaming\\npm-cache\\profam\\1.0.6\\package.tgz',
+16 verbose tar pack   'D:\\Work\\Profam' ]
+17 verbose tarball C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package.tgz
+18 verbose folder D:\Work\Profam
+19 verbose addLocalTarball adding from inside cache C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package.tgz
+20 verbose correctMkdir C:\Users\Steve\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+21 silly cache afterAdd profam@1.0.6
+22 verbose afterAdd C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package\package.json not in flight; writing
+23 verbose correctMkdir C:\Users\Steve\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+24 verbose afterAdd C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package\package.json written
+25 silly publish { name: 'profam',
+25 silly publish   version: '1.0.6',
+25 silly publish   description: 'Profanity and Spam Tool, supporting multiple languages and modes.',
+25 silly publish   keywords: [ 'profanity', 'badwords', 'spam', 'troll', 'filter', 'sensor' ],
+25 silly publish   person:
+25 silly publish    { name: 'Steven Noni',
+25 silly publish      email: 'staurosnonis@gmail.com',
+25 silly publish      url: 'https://twitter.com/StevenNonis' },
+25 silly publish   repository: { type: 'git', url: 'git+https://github.com/nionis/profam.git' },
+25 silly publish   scripts:
+25 silly publish    { build: 'babel source --out-file distribution/profam.js',
+25 silly publish      buildw: 'babel -w source --out-file distribution/profam.js',
+25 silly publish      prepublish: 'npm run build' },
+25 silly publish   dependencies: { axios: '^0.9.1' },
+25 silly publish   devDependencies:
+25 silly publish    { async: '^2.0.0-rc.3',
+25 silly publish      'babel-cli': '^6.7.5',
+25 silly publish      'babel-core': '^6.4.5',
+25 silly publish      'babel-loader': '^6.2.2',
+25 silly publish      'babel-plugin-array-includes': '^2.0.3',
+25 silly publish      'babel-preset-es2015': '^6.6.0',
+25 silly publish      'babel-preset-stage-0': '^6.5.0' },
+25 silly publish   main: 'distribution/profam.js',
+25 silly publish   readme: '# Profam\nAll in One Profanity and Spam Tool, supporting multiple languages and modes.\n\n*Atm works only if you have babel on client, compile coming soon.*\n\n## Thanks to:\n- [Shutterstock Project](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words), for provading all the bad words!\n\n## Tools Available\n| Tool | Use | Default Status |\n| --- | --- | --- |\n| Profanity | Used to censor words using the selected modes. | Enabled |\n| Spam | Uses an algorithm to stop repeating characters. | Disabled |\n\n\n## How to\n*Warning : Examples may contain offensive text*\n\n### Quick Start\n\n```javascript\nimport profam from \'profam\';\n\n//Initialize\nlet profam = new profam();\n\n//(server) Changing localesDir will update locales with the contents of the dir\nprofam.profanity.setLocalesDir(\'/locales/\');\n//OR\n//(client) Assuming you are hosting languages on your own, you will need to specify a get-url mockup.\nprofam.profanity.setLocalesDir(\'/locales/[locale].json\');\n\n//Now that you have a get-url mockup you can start adding languages, and profam will take care of the rest.\nprofam.profanity.setLocales(\'en\');\n\n//Now english is added, bad-words in english will be replaced with the default mode\'s text. To change it:\nprofam.profanity.setModes(\'funny\');\n\n//Bad-words will be replaced with funny words using funny mode.\nprofam.process(\'Go to hell!\'); // returns-> Go to unicorn!.\n\n\n// ---> Done! Now bad-words in english will be censored! Lets say you want to add a custom language:\nprofam.profanity.setLocales(\'customLanguage\', true);        // -> 2nd param: marks it as custom\n//OR\nprofam.profanity.setLocales(\'customLanguage\', true, true);  // -> 3rd param: simply *adds* a new language, instead of replacing english.\n\n//Adding words to your custom language:\nprofam.profanity.addWords(\'customLanguage\', [\'badword\']);\n```\n\n\n## In-Depth all methods\n\n### Profanity Tool\n|\tMethod\t|\tParameters\t|\tUse\t|\tDefault\t|\n|\t-----\t|\t-----\t|\t-----\t|\t-----\t|\n|\tprofanity.enable =\t|\tBoolean\t|\tEnable or disable profanity\t|\tTRUE\t|\n|\tprofanity.setLocalesDir(\\<string\\>)\t|\tString\t|\tReplaces [locale] with the language you want to download. Ex: example.com/locales/[locale].js\t|\tnull\t|\n|\tprofanity.setLocales(\\<string/array\\>, \\<true/false\\>, \\<true/false\\>\t|\t<ol><li>Locales(s)</li><li>is custom</li><li>keep existing</li></ol>\t|\tAdd the languages you wonna look for bad-words\t|\t<ol><li>Empty</li><li>false</li><li>false</li></ol>\t|\n|\tprofanity.addWords(\\<string\\>, \\<array\\>, \\<boolean\\>)\t|\t<ol><li>Locale</li></ol><ol><li>Words</li></ol><ol><li>Add</li></ol>\t|\tAdd new words in selected locale.\t|\t\t|\n|\tprofanity.removeWords(\\<string\\>, \\<array\\>)\t|\t<ol><li>Locale</li></ol><ol><li>Words</li></ol>\t|\tRemove words from locale.\t|\t\t|\n|\tprofanity.setModes(\\<string/array\\>)\t|\t<ol><li>Mode(s)</li></ol>\t|\tSet Modes\t|\tasterisks-obscure\t|\n|\tprofanity.getLocales()\t|\t\t|\tGet Locales\t|\t\t|\n|\tprofanity.getLocalesEnabled()\t|\t\t|\tGet Locales Enabled\t|\t\t|\n|\tprofanity.getModes()\t|\t\t|\tGet Modes\t|\t\t|\n|\tprofanity.getModesEnabled()\t|\t\t|\tGet Modes Enabled\t|\t\t|\n\n### Spam Tool\n|\tMethod\t|\tParameters\t|\tUse\t|\tDefault\t|\n|\t-----\t|\t-----\t|\t-----\t|\t-----\t|\n|\tspam.enable\t|\tBoolean\t|\tEnable or disable Spam\t|\tFALSE\t|\n\n### Profam\n|\tMethod\t|\tParameters\t|\tUse\t|\tDefault\t|\n|\t-----\t|\t-----\t|\t-----\t|\t-----\t|\n|\t.proceed(\\<string\\>)\t|\tString\t|\tReturn censored string\t|\t\t|\n',
+25 silly publish   readmeFilename: 'README.md',
+25 silly publish   gitHead: '989d093c5bcacacb7306a6a83ed843038b20de15',
+25 silly publish   bugs: { url: 'https://github.com/nionis/profam/issues' },
+25 silly publish   homepage: 'https://github.com/nionis/profam#readme',
+25 silly publish   _id: 'profam@1.0.6',
+25 silly publish   _shasum: 'a8c9e5927d6376237b04a69ea244f356013307c3',
+25 silly publish   _from: '.' }
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name profam
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry uri https://registry.npmjs.org/profam
+31 verbose publish registryBase https://registry.npmjs.org/
+32 silly publish uploading C:\Users\Steve\AppData\Roaming\npm-cache\profam\1.0.6\package.tgz
+33 verbose request uri https://registry.npmjs.org/profam
+34 verbose request sending authorization for write operation
+35 info attempt registry request try #1 at 4:15:42 PM
+36 verbose request using bearer token for auth
+37 verbose request id 751a84d8472c7fae
+38 http request PUT https://registry.npmjs.org/profam
+39 http 403 https://registry.npmjs.org/profam
+40 verbose headers { 'content-type': 'application/json',
+40 verbose headers   'cache-control': 'max-age=300',
+40 verbose headers   'content-length': '95',
+40 verbose headers   'accept-ranges': 'bytes',
+40 verbose headers   date: 'Wed, 13 Apr 2016 14:15:53 GMT',
+40 verbose headers   via: '1.1 varnish',
+40 verbose headers   connection: 'keep-alive',
+40 verbose headers   'x-served-by': 'cache-fra1229-FRA',
+40 verbose headers   'x-cache': 'MISS',
+40 verbose headers   'x-cache-hits': '0',
+40 verbose headers   'x-timer': 'S1460556952.171499,VS0,VE1416',
+40 verbose headers   vary: 'Accept-Encoding' }
+41 verbose request invalidating C:\Users\Steve\AppData\Roaming\npm-cache\registry.npmjs.org\profam on PUT
+42 error publish Failed PUT 403
+43 verbose stack Error: "You cannot publish over the previously published version 1.0.6." : profam
+43 verbose stack     at makeError (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:264:12)
+43 verbose stack     at CachingRegistryClient.<anonymous> (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:252:14)
+43 verbose stack     at Request._callback (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\npm-registry-client\lib\request.js:172:14)
+43 verbose stack     at Request.self.callback (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:199:22)
+43 verbose stack     at emitTwo (events.js:87:13)
+43 verbose stack     at Request.emit (events.js:172:7)
+43 verbose stack     at Request.<anonymous> (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:1036:10)
+43 verbose stack     at emitOne (events.js:82:20)
+43 verbose stack     at Request.emit (events.js:169:7)
+43 verbose stack     at IncomingMessage.<anonymous> (C:\Users\Steve\AppData\Roaming\npm\node_modules\npm\node_modules\request\request.js:963:12)
+44 verbose statusCode 403
+45 verbose pkgid profam
+46 verbose cwd D:\Work\Profam
+47 error Windows_NT 10.0.10586
+48 error argv "D:\\Programs\\NodeJS\\node.exe" "C:\\Users\\Steve\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+49 error node v4.2.4
+50 error npm  v3.8.0
+51 error code E403
+52 error "You cannot publish over the previously published version 1.0.6." : profam
+53 error If you need help, you may report this error at:
+53 error     <https://github.com/npm/npm/issues>
+54 verbose exit [ 1, true ]
