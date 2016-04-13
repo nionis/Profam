@@ -276,6 +276,7 @@ var profanity = function () {
           var toProcess = string;
 
           localesAllWords.forEach(function (word) {
+            word = word.toLowerCase();
             if (toProcess.indexOf(word) !== -1) {
               (function () {
                 var wordLength = word.length;
