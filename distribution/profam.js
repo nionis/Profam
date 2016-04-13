@@ -314,7 +314,7 @@ var profanity = function () {
                     case 'grawlix':
                       {
                         var _ret2 = function () {
-                          var grawlixChars = ['!', '@', '#', '$', '%', '&', '*'];
+                          var grawlixChars = ['!', '@', '#', '$', '%', '~', '*'];
                           return {
                             v: word.split('').map(function (char) {
                               return grawlixChars[randomRange(0, grawlixChars.length)];

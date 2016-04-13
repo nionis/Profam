@@ -227,7 +227,7 @@ class profanity {
                   return 'BLEEP';
                 }
                 case 'grawlix': {
-                  let grawlixChars = ['!','@','#','$','%','&','*'];
+                  let grawlixChars = ['!','@','#','$','%','~','*'];
                   return word.split('').map((char) => { return grawlixChars[randomRange(0, grawlixChars.length)]; }).join('');
                 }
                 case 'hide': {
