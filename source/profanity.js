@@ -11,11 +11,10 @@ class profanity {
       ['choice'            , { 'enabled': 0 , data: [] }],
       ['funny'             , { 'enabled': 0 , data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }],
       ['grawlix'           , { 'enabled': 0 }],
-      ['grawlix'           , { 'enabled': 0 }],
       ['spaces'            , { 'enabled': 0 }],
       ['black'             , { 'enabled': 0 }],
       ['hide'              , { 'enabled': 0 }],
-      ['bleep'             , { 'enabled': 0 }]
+      ['beep'              , { 'enabled': 0 }]
     ]);
 
     this.wholeWord = 0;
@@ -224,7 +223,7 @@ class profanity {
                 case 'asterisks-obscure': {
                   return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
                 }
-                case 'bleep': {
+                case 'beep': {
                   return 'BEEP';
                 }
                 case 'grawlix': {

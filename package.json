@@ -21,7 +21,10 @@
   },
   "scripts": {
     "build": "babel source --out-file distribution/profam.js",
-    "buildw" : "babel -w source --out-file distribution/profam.js",
+    "buildw": "babel -w source --out-file distribution/profam.js",
+    "major-release": "npm version major && npm publish && git push --follow-tags",
+    "minor-release": "npm version minor && npm publish && git push --follow-tags",
+    "patch-release": "npm version patch && npm publish && git push --follow-tags",
     "prepublish": "npm run build"
   },
   "dependencies": {
