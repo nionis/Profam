@@ -18,7 +18,7 @@ var profanity = function () {
     this.localesDir = null; // Url Mockup of locales location for axio.get
 
     this.modes = new Map([//  Can check modes available, enabled
-    ['asterisks-obscure', { 'enabled': 1 }], ['asterisks-full', { 'enabled': 0 }], ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['bleep', { 'enabled': 0 }]]);
+    ['asterisks-obscure', { 'enabled': 1 }], ['asterisks-full', { 'enabled': 0 }], ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['beep', { 'enabled': 0 }]]);
 
     this.wholeWord = 0;
   }
@@ -308,7 +308,7 @@ var profanity = function () {
                       {
                         return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
                       }
-                    case 'bleep':
+                    case 'beep':
                       {
                         return 'BEEP';
                       }
@@ -365,8 +365,6 @@ var profanity = function () {
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-require('babel-polyfill');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

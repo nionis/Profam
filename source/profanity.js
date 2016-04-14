@@ -65,9 +65,10 @@ class profanity {
     let self = this;
     locales = toArray(locales);
 
+    if(!isAdd) { self.locales.clear(); }
+
     //Process Locales
     let processLocale = (item) => {
-      if(!isAdd) { self.locales.clear(); }
       self.locales.set(...item);
     };
 
