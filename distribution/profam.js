@@ -276,7 +276,8 @@ var profanity = function () {
           var toProcess = string;
 
           localesAllWords.forEach(function (word) {
-            if (toProcess.match(new RegExp(word, 'gi')).length > 0) {
+            var isIncluded = toProcess.match(new RegExp(word, 'gi'));
+            if (isIncluded !== null && isIncluded.length > 0) {
               (function () {
                 var wordLength = word.length;
                 var replaceStr = function () {
@@ -309,7 +310,7 @@ var profanity = function () {
                       }
                     case 'bleep':
                       {
-                        return 'BLEEP';
+                        return 'BEEP';
                       }
                     case 'grawlix':
                       {

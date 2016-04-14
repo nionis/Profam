@@ -225,7 +225,7 @@ class profanity {
                   return word[0] + '*'.repeat(wordLength-2) + word[word.length-1];
                 }
                 case 'bleep': {
-                  return 'BLEEP';
+                  return 'BEEP';
                 }
                 case 'grawlix': {
                   let grawlixChars = ['!','@','#','$','%','~','*'];
