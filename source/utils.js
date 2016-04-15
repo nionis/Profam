@@ -37,3 +37,7 @@ let logger = (...args) => {
     console.log('Profam:', argument);
   }
 };
+
+let escapeSymbols = (str) => {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+};

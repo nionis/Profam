@@ -277,7 +277,7 @@ var profanity = function () {
           var toProcess = string;
 
           localesAllWords.forEach(function (word) {
-            word = word.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            word = escapeSymbols(word);
             var isIncluded = toProcess.match(new RegExp(word, 'gi'));
             if (isIncluded !== null && isIncluded.length > 0) {
               (function () {
@@ -574,4 +574,8 @@ var logger = function logger() {
       }
     }
   }
+};
+
+var escapeSymbols = function escapeSymbols(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
