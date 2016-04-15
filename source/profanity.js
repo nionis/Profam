@@ -199,6 +199,7 @@ class profanity {
         let toProcess = string;
 
         localesAllWords.forEach((word) => {
+          word = word.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
           let isIncluded = toProcess.match(new RegExp(word, 'gi'));
           if(isIncluded !== null && isIncluded.length > 0) {
             let wordLength = word.length;

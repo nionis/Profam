@@ -90,13 +90,14 @@ var profanity = function () {
       var self = this;
       locales = toArray(locales);
 
+      if (!isAdd) {
+        self.locales.clear();
+      }
+
       //Process Locales
       var processLocale = function processLocale(item) {
         var _self$locales;
 
-        if (!isAdd) {
-          self.locales.clear();
-        }
         (_self$locales = self.locales).set.apply(_self$locales, _toConsumableArray(item));
       };
 
@@ -276,6 +277,7 @@ var profanity = function () {
           var toProcess = string;
 
           localesAllWords.forEach(function (word) {
+            word = word.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
             var isIncluded = toProcess.match(new RegExp(word, 'gi'));
             if (isIncluded !== null && isIncluded.length > 0) {
               (function () {
