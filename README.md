@@ -1,8 +1,6 @@
 # Profam
 All in One Profanity and Spam Tool, supporting multiple languages and modes.
 
-*Atm works only if you have babel on client, compile coming soon.*
-
 ## Thanks to:
 - [Shutterstock Project](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words), for provading all the bad words!
 
@@ -25,7 +23,7 @@ import profam from 'profam';
 let profam = new profam();
 
 //(server) Changing localesDir will update locales with the contents of the dir
-profam.profanity.setLocalesDir('/locales/');
+//profam.profanity.setLocalesDir('/locales/'); soon
 //OR
 //(client) Assuming you are hosting languages on your own, you will need to specify a get-url mockup.
 profam.profanity.setLocalesDir('/locales/[locale].json');

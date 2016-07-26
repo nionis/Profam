@@ -1,3 +1,6 @@
+import { toArray } from './utils'
+
+
 class spam {
   constructor() {
     this.enable    = 0;
@@ -50,3 +53,5 @@ class spam {
     });
   }
 };
+
+export default spam;

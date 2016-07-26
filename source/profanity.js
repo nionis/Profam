@@ -1,3 +1,6 @@
+import { whatIs, toArray, randomRange, logger, escapeSymbols } from './utils'
+
+
 class profanity {
   constructor() {
     this.enable  = 1;                                                                         //  1, 0  : Enabled or Disabled
@@ -259,3 +262,5 @@ class profanity {
     return whatIsReturn == 'Array' && processed.length == 1 ? processed[0] : processed;
   }
 };
+
+export default profanity;

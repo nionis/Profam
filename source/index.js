@@ -1,5 +1,11 @@
-const axios = require('axios'),
-      env   = typeof process === 'undefined' ? 'browser' : 'server';
+import axios from 'axios'
+import profanity from 'profanity'
+import spam from 'spam'
+import { logger } from 'utils'
+
+
+const env = typeof process === 'undefined' ? 'browser' : 'server';
+
 
 module.exports = class {
   constructor(options=null) {

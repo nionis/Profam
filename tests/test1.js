@@ -7,6 +7,6 @@ let x = new profam();
 x.profanity.setLocales('custom', true, true);
 x.profanity.addWords('custom', ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '=', '-', '\\', '|', '/', '+']);
 
-x.profanity.setModes(['asterisks-full']);
+x.profanity.setModes(['grawlix']);
 
 console.log(x.proceed('! @ # $ % ^ & * ( ) _ = - \ | / +'));

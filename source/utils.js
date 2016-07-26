@@ -1,4 +1,4 @@
-let arrRemove = (arr, item) => {
+const arrRemove = (arr, item) => {
   while (arr.includes(item)) {
     let index = arr.indexOf(item);
     arr = arr.splice(index, 1);
@@ -6,7 +6,7 @@ let arrRemove = (arr, item) => {
   return arr;
 };
 
-let whatIs = (item=null) => {
+const whatIs = (item=null) => {
   let def = 'Null';
 
   if(item == null) { return def; }
@@ -21,23 +21,33 @@ let whatIs = (item=null) => {
          def;
 };
 
-let toArray = (item) => {
+const toArray = (item) => {
   let constructor = whatIs(item);
   return constructor == 'Array' ? item :
          constructor == 'Number' || constructor == 'String'? [item] :
          null;
 };
 
-let randomRange = (min=0, max=101) => {
+const randomRange = (min=0, max=101) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-let logger = (...args) => {
+const logger = (...args) => {
   for (let argument of args) {
     console.log('Profam:', argument);
   }
 };
 
-let escapeSymbols = (str) => {
+const escapeSymbols = (str) => {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
+
+
+export {
+  arrRemove,
+  whatIs,
+  toArray,
+  randomRange,
+  logger,
+  escapeSymbols
+}

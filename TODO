@@ -1,7 +1,5 @@
--> Fix ReadMe
--> add tests
--> auto update languages
--> each words own censor
--> better backend compatibility
+-> better readme
+-> add proper tests
 -> better syntax
--> minify, uglify, bundle
+-> some refactoring
+-> add backend compatibility
