@@ -20,8 +20,8 @@
     "url": "https://github.com/nionis/profam.git"
   },
   "scripts": {
-    "prod": "webpack --mode=production --ugly=false && webpack --mode=production --ugly=true",
-    "dev": "webpack --progress --colors --watch --mode=development --ugly=false"
+    "build:prod": "webpack --mode=production --ugly=false && webpack --mode=production --ugly=true",
+    "build:dev": "webpack --progress --colors --watch --mode=development --ugly=false"
   },
   "main": "distribution/profam.min.js",
   "dependencies": {

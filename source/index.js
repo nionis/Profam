@@ -1,4 +1,3 @@
-import axios from 'axios'
 import profanity from 'profanity'
 import spam from 'spam'
 import { logger } from 'utils'
