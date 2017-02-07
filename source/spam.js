@@ -1,6 +1,5 @@
 // @flow
 
-import Control from './control'
 import { toArray } from './utils'
 
 
@@ -38,9 +37,7 @@ const regexpCheck = (str: string): string => (
   str.replace(/(.)\1{3,}/g, '$1$1$1')
 )
 
-const Spam = (inputOpts: Object): Object => {
-  const ctrl: Object = Control(inputOpts)
-
+const Spam = (inputOpts: Object = {}): Object => {
   const opts: {
     frequency: number;
   } = {
@@ -53,7 +50,7 @@ const Spam = (inputOpts: Object): Object => {
   const run = (strs: any = []): Array<string> => {
     const strsArray: Array<string> = toArray(strs)
 
-    if (!ctrl.isEnabled() || !getFrequency()) return strsArray
+    if (!getFrequency()) return strsArray
 
     const checked: Array<string> = (
       strsArray
@@ -65,7 +62,6 @@ const Spam = (inputOpts: Object): Object => {
   }
 
   return {
-    ...ctrl,
     getFrequency,
     setFrequency,
     run,

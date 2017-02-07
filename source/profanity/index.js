@@ -1,7 +1,6 @@
 // @flow
 
 import axios from 'axios'
-import Control from '../control'
 import runMode from './runMode'
 import { toArray, escapeSymbols } from '../utils'
 import modes from './modes.json'
@@ -11,9 +10,7 @@ const makeUrl = (url: string, lang: string): string => (
   url.replace(/\[language\]/gi, lang)
 )
 
-const Profanity = (inputOpts: Object): Object => {
-  const ctrl: Object = Control(inputOpts)
-
+const Profanity = (inputOpts: Object = {}): Object => {
   const opts: Object = {
     languages: new Map(),
     allWords: [],
@@ -200,7 +197,6 @@ const Profanity = (inputOpts: Object): Object => {
 
 
   return {
-    ...ctrl,
     getDownloadUrl,
     setDownloadUrl,
     getLanguages,

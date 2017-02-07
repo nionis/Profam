@@ -1,24 +1,9 @@
 import Profanity from '../source/profanity'
 
-
 const dlUrl = 'https://static.gamingforgood.net/assets/profanityLocales/[language].json'
 const str = 'hellobadwordnasty nasty word'
+const profanity = Profanity()
 
-const profanity = Profanity({
-  enabled: true,
-})
-
-// Input opts
-test('enabled', () => {
-  expect(profanity.isEnabled()).toEqual(true)
-})
-
-// Modify opts
-test('disable', () => {
-  profanity.disable()
-
-  expect(profanity.isEnabled()).toEqual(false)
-})
 
 // downloadUrl
 test(`setDownloadUrl to ${dlUrl}`, () => {

@@ -1,4 +1,4 @@
 -> tests
   - jest node only
   - other optimization
--> update readme
+  - jest watch mode

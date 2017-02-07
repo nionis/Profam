@@ -5,10 +5,10 @@ All in One Profanity and Spam Tool, supporting multiple languages and modes.
 - [Shutterstock Project](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words), for provading all the bad words!
 
 ## Tools Overview
-Tool | Use | Default Status
----- | ---- | ----
-Profanity | Used to censor words using selected modes | Enabled
-Spam | Uses an algorithm to stop repeating characters | Disabled
+Tool | Use
+---- | ----
+Profanity | Used to censor words using selected modes
+Spam | Uses an algorithm to stop repeating characters
 
 
 ## How to
@@ -17,16 +17,15 @@ Spam | Uses an algorithm to stop repeating characters | Disabled
 ### Quick Start
 
 ```javascript
-import Profam from 'profam';
-
 // Initialize
-const { profanity, spam } = new Profam()
+import { profanity, spam } from 'profam'
 
 // Profanity
-profanity.setLanguagesUrl('/languages/[language].json')
+// set download url
+profanity.setDownloadUrl('https://static.gamingforgood.net/assets/profanityLocales/[language].json')
 
-// Now that we have specified languages url/dir you can start adding languages
-profanity.setLanguages('en')
+// Now that we have specified languages url you can start adding languages
+profanity.addLanguages('en')
 
 // Now English is added, bad-words in English will be censored according to the mode selected
 // To change profanity mode:
@@ -36,35 +35,37 @@ profanity.setModes('funny')
 profanity.run('Go to hell!') // --> Go to unicorn!
 
 // Adding custom words
-profanity.setLanguages('customLanguage', true) // -> 2nd param: marks it as custom
+profanity.addCustomLanguages('Klingon')
 
 //Adding words to your custom language:
-profanity.addWords('customLanguage', ['badword'])
+profanity.addWords('Klingon', ['Hu\'tegh', 'baktag'])
+
+// Spam
+spam.run('trolololololololololol') // --> trolol
 ```
 
 
 ## In-Depth all methods
 
 ### Profanity Methods
-| Method | Parameters | Use | Default | Returns |
-| ----- | ----- | ----- | ----- | ----- |
-| profanity.enable() | None | Enable profanity | None | Boolean |
-| profanity.disable() | None | Disable profanity | None | Boolean |
-| profanity.status() | None | Get profanity status | None | Boolean |
-| profanity.setLanguagesUrl(a=string) | Url | Replaces "[language]" with the language you want to download. Ex: yoursite.com/languages/[language].json | "/languages/[language].json" | Boolean |
-| profanity.setLanguages(a=string/array, b=boolean, c=boolean> | Language(s) name, is custom language, remove other languages  | Add the languages you want to search for bad-words | [], false, false | Promise |
-| profanity.addWords(a=string, b=array, c=boolean) | Language, Words, Remove other words | Add new words in selected language. | undefined, [], false | Boolean |
-| profanity.removeWords(a=string, b=array) | Language, Words | Remove words from language. | None | Boolean |
-| profanity.getModes() | None | Get Modes | None | Boolean |
-| profanity.setModes(a=string/array) | Mode(s) | Set Modes | asterisks-obscure | Boolean |
-| profanity.getLanguages() | None | Get Languages | None | Boolean |
-| profanity.getLanguagesEnabled() | None | Get Languages Enabled | None | Boolean |
+| Method | Use |
+| ----- | ----- |
+| profanity.getDownloadUrl() | Returns download url |
+| profanity.setDownloadUrl(string) | Sets download url |
+| profanity.getLanguages() | Returns array of language downloaded |
+| profanity.addLanguages(string/array) | Returns a promise and downlods languages |
+| profanity.addCustomLanguages(string/array) | Adds custom languages |
+| profanity.removeLanguages(string/array) | Removes languages |
+| profanity.getWords(string(language)) | Returns bad-words used by language |
+| profanity.addWords(string(language), string/array) | Adds words to language |
+| profanity.removeWords(string(language), string/array) | Removes words in language |
+| profanity.getModes() | Returns enabled modes |
+| profanity.setModes(string/array) | Enables modes |
+| profanity.run(string/array) | Returns array of object for each string keyed by mode used |
 
 ### Spam Tool
-| Method | Parameters | Use | Returns |
-| ----- | ----- | ----- | ----- |
-| spam.enable() | None | Enable spam | Boolean |
-| spam.disable() | None | Disable spam | Boolean |
-| spam.status() | None | Get spam status | Boolean |
-| spam.setFrequency() | Frequency | Set frequency | Integer |
-| spam.getFrequency() | None | Get frequency | Integer |
+| Method | Use |
+| ----- | ----- |
+| spam.getFrequency() | Returns frequency used in algorithm |
+| spam.setFrequency(number) | Sets frequency used in algorithm |
+| spam.run(string/array) | Returns array of strings |
