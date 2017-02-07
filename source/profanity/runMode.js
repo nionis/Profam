@@ -1,34 +1,42 @@
+// @flow
+
 import { randomRange } from '../utils'
 
-
-const modeFunny = (modes: array<Object>) => {
-  const list = modes.find(item => item.name === 'funny').data
-  return list[randomRange(0, list.length)] || ''
+const emptyList = {
+  data: [],
 }
-const modeSpaces = (length: number) => (
+
+
+const modeFunny = (modes: Array<Object>): string => {
+  const mode: Object = modes.find(item => item.name === 'funny') || emptyList
+  const data: Array<string> = mode.data
+  return data[randomRange(0, data.length)] || ''
+}
+const modeSpaces = (length: number): string => (
   ' '.repeat(length)
 )
-const modeBlack = (length: number) => (
+const modeBlack = (length: number): string => (
   '&#9632;'.repeat(length)
 )
-const modeAsterisksFull = (length: number) => (
+const modeAsterisksFull = (length: number): string => (
   '*'.repeat(length)
 )
-const modeAsterisksObscure = (word: string, length: number) => (
+const modeAsterisksObscure = (word: string, length: number): string => (
   word[0] + '*'.repeat(length - 2) + word[word.length - 1]
 )
 const modeBeep = () => (
   'BEEP'
 )
-const modeGrawlix = (modes: array<Object>, word: string) => {
-  const list = modes.find(item => item.name === 'grawlix').data
-  return word.split('').map(() => list[randomRange(0, list.length)]).join('')
+const modeGrawlix = (modes: Array<Object>, word: string): string => {
+  const mode: Object = modes.find(item => item.name === 'grawlix') || emptyList
+  const data: Array<string> = mode.data
+  return word.split('').map(() => data[randomRange(0, data.length)]).join('')
 }
-const modeHide = () => (
+const modeHide = (): string => (
   ''
 )
 
-const runMode = (modes: array<Object>, mode: string, word: string, length: number) => {
+const runMode = (modes: Array<Object>, mode: string, word: string, length: number): string => {
   switch (mode) {
     case 'funny': {
       return modeFunny(modes)

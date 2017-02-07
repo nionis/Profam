@@ -1,3 +1,5 @@
+// @flow
+
 import Profanity from './profanity'
 import Spam from './spam'
 

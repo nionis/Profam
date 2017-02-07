@@ -1,9 +1,11 @@
+// @flow
+
 import Control from './control'
 import { toArray } from './utils'
 
 
-const makeBundle = (chars: array<string>, index: number, f: number) => {
-  const bundleChars: array<string> = []
+const makeBundle = (chars: Array<string>, index: number, f: number) => {
+  const bundleChars: Array<string> = []
 
   for (let c = 0; c < f; c += 1) {
     const char: string = chars[index + c] || ''
@@ -15,10 +17,10 @@ const makeBundle = (chars: array<string>, index: number, f: number) => {
   return joined
 }
 const bundleCheck = (str: string, frequency: number): string => {
-  const chars: array<string> = str.split('').reverse()
-  const checkedChars: array<string> = []
+  const chars: Array<string> = str.split('').reverse()
+  const checkedChars: Array<string> = []
 
-  chars.map((char: string, index: number) => {
+  chars.map((char: string, index: number): boolean => {
     const bundle: string = makeBundle(chars, index, frequency)
     const future: string = makeBundle(chars, index + frequency, frequency)
 
@@ -36,22 +38,24 @@ const regexpCheck = (str: string): string => (
   str.replace(/(.)\1{3,}/g, '$1$1$1')
 )
 
-const Spam = (inputOpts: object): Function => {
-  const ctrl: object = Control(inputOpts)
+const Spam = (inputOpts: Object): Object => {
+  const ctrl: Object = Control(inputOpts)
 
-  const opts: object = {
+  const opts: {
+    frequency: number;
+  } = {
     frequency: 3,
     ...inputOpts,
   }
 
   const getFrequency: number = () => opts.frequency
   const setFrequency: number = frequency => (opts.frequency = frequency)
-  const run = (strs: mixed = []): string => {
-    const strsArray: array<string> = toArray(strs)
+  const run = (strs: any = []): Array<string> => {
+    const strsArray: Array<string> = toArray(strs)
 
     if (!ctrl.isEnabled() || !getFrequency()) return strsArray
 
-    const checked: array<string> = (
+    const checked: Array<string> = (
       strsArray
         .map(str => bundleCheck(str, getFrequency()))
         .map(str => regexpCheck(str))

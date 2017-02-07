@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(7);
 
 /*global toString:true*/
 
@@ -407,10 +407,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(2);
+    adapter = __webpack_require__(3);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(2);
+    adapter = __webpack_require__(3);
   }
   return adapter;
 }
@@ -481,10 +481,59 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.escapeSymbols = exports.randomRange = exports.toArray = exports.removeFromArray = undefined;
+
+var _typeName = __webpack_require__(31);
+
+var _typeName2 = _interopRequireDefault(_typeName);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var removeFromArray = exports.removeFromArray = function removeFromArray() {
+  var arr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var item = arguments[1];
+  return arr.filter(function (x) {
+    return x !== item;
+  });
+};
+
+var toArray = exports.toArray = function toArray() {
+  var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+  var is = (0, _typeName2.default)(item);
+  var isArray = is === 'Array';
+  var isNumber = is === 'number';
+  var isString = is === 'string';
+
+  if (isArray) return item;
+  if (isNumber || isString) return [item];
+  return [];
+};
+
+var randomRange = exports.randomRange = function randomRange() {
+  var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 101;
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+var escapeSymbols = exports.escapeSymbols = function escapeSymbols(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -495,7 +544,7 @@ var settle = __webpack_require__(18);
 var buildURL = __webpack_require__(21);
 var parseHeaders = __webpack_require__(27);
 var isURLSameOrigin = __webpack_require__(25);
-var createError = __webpack_require__(5);
+var createError = __webpack_require__(6);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
 
 module.exports = function xhrAdapter(config) {
@@ -668,7 +717,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -694,7 +743,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -706,7 +755,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -730,7 +779,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,258 +797,45 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var ENV = exports.ENV = typeof process === 'undefined' ? 'browser' : 'server';
+var Control = function Control(inputOpts) {
+  var opts = _extends({
+    enabled: false
+  }, inputOpts);
 
-var arrRemove = exports.arrRemove = function arrRemove(arr, item) {
-  while (arr.includes(item)) {
-    var index = arr.indexOf(item);
-    arr = arr.splice(index, 1);
-  }
-  return arr;
+  var enable = function enable() {
+    return opts.enabled = true;
+  };
+  var disable = function disable() {
+    return opts.enabled = false;
+  };
+  var isEnabled = function isEnabled() {
+    return opts.enabled;
+  };
+  var status = function status() {
+    return opts.enabled;
+  };
+
+  return {
+    enable: enable,
+    disable: disable,
+    isEnabled: isEnabled,
+    status: status
+  };
 };
 
-var constructorStrs = exports.constructorStrs = [['Array', Array.toString()], ['String', String.toString()], ['Number', Number.toString()], ['Object', Object.toString()], ['Function', Function.toString()]];
-var whatIs = exports.whatIs = function whatIs() {
-  var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-  var def = 'Null';
-
-  if (item == null) return def;
-
-  var stringify = item.constructor.toString();
-  var found = (constructorStrs.find(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        type = _ref2[0],
-        str = _ref2[1];
-
-    return str == stringify;
-  }) || [])[0];
-  return found || def;
-};
-
-var toArray = exports.toArray = function toArray(item) {
-  var constructor = whatIs(item);
-  return constructor == 'Array' ? item : constructor == 'Number' || constructor == 'String' ? [item] : null;
-};
-
-var randomRange = exports.randomRange = function randomRange() {
-  var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 101;
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-var logger = exports.logger = function logger() {
-  var _console;
-
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return (_console = console).log.apply(_console, ['Profam:'].concat(args));
-};
-
-var escapeSymbols = exports.escapeSymbols = function escapeSymbols(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-};
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
+exports.default = Control;
 
 /***/ }),
 /* 9 */
@@ -1012,542 +848,241 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _axios = __webpack_require__(11);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _utils = __webpack_require__(7);
+var _control = __webpack_require__(8);
+
+var _control2 = _interopRequireDefault(_control);
+
+var _runMode = __webpack_require__(29);
+
+var _runMode2 = _interopRequireDefault(_runMode);
+
+var _utils = __webpack_require__(2);
+
+var _modes = __webpack_require__(32);
+
+var _modes2 = _interopRequireDefault(_modes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var modes = new Map([['asterisks-obscure', { 'enabled': 1 }], ['asterisks-full', { 'enabled': 0 }], ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['beep', { 'enabled': 0 }]]);
-
-var makeUrl = function makeUrl(languagesUrl, lang) {
-  return languagesUrl.replace(/\[language\]/g, lang);
+var makeUrl = function makeUrl(url, lang) {
+  return url.replace(/\[language\]/gi, lang);
 };
 
-var downloadLangs = function () {
-  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(languagesUrl, langs) {
-    var packs;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            packs = langs.map(function (lang) {
-              return {
-                lang: lang,
-                url: makeUrl(languagesUrl, lang),
-                data: []
-              };
-            });
-            _context2.next = 3;
-            return Promise.all(packs.map(function () {
-              var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(pack) {
-                return regeneratorRuntime.wrap(function _callee$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        _context.t0 = _extends;
-                        _context.t1 = {};
-                        _context.t2 = pack;
-                        _context.next = 5;
-                        return _axios2.default.get(pack.url).then(function (res) {
-                          return res.data;
-                        });
+var Profanity = function Profanity(inputOpts) {
+  var ctrl = (0, _control2.default)(inputOpts);
 
-                      case 5:
-                        _context.t3 = _context.sent;
-                        _context.t4 = {
-                          data: _context.t3
-                        };
-                        return _context.abrupt('return', (0, _context.t0)(_context.t1, _context.t2, _context.t4));
+  var opts = _extends({
+    languages: new Map(),
+    allWords: [],
+    downloadUrl: '/languages/[language].json',
+    modes: _modes2.default
+  }, inputOpts);
 
-                      case 8:
-                      case 'end':
-                        return _context.stop();
-                    }
-                  }
-                }, _callee, undefined);
-              }));
-
-              return function (_x3) {
-                return _ref2.apply(this, arguments);
-              };
-            }()));
-
-          case 3:
-            return _context2.abrupt('return', _context2.sent);
-
-          case 4:
-          case 'end':
-            return _context2.stop();
-        }
-      }
-    }, _callee2, undefined);
-  }));
-
-  return function downloadLangs(_x, _x2) {
-    return _ref.apply(this, arguments);
+  var getDownloadUrl = function getDownloadUrl() {
+    return opts.downloadUrl;
   };
-}();
-
-var Profanity = function Profanity() {
-  var enabled = true;
-  var wholeWord = false;
-  var languagesUrl = '/languages/[language].json';
-  var languages = new Map();
-
-  var enable = function enable() {
-    return enabled = true;
+  var setDownloadUrl = function setDownloadUrl(url) {
+    return opts.downloadUrl = url;
   };
-  var disable = function disable() {
-    return enabled = false;
+
+  var getLanguages = function getLanguages() {
+    return [].concat(_toConsumableArray(opts.languages.keys()));
   };
-  var status = function status() {
-    return enabled;
-  };
-  var setLanguagesUrl = function setLanguagesUrl(str) {
-    return languagesUrl = str;
-  };
-  var addLanguage = function addLanguage(langs) {
-    return languages.set.apply(languages, _toConsumableArray(langs));
-  };
-  var setLanguages = function () {
-    var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(langs, isCustom, removeOthers) {
-      var newLangs, packs;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              langs = (0, _utils.toArray)(langs);
-              if (removeOthers) languages.clear();
+  var addLanguages = function addLanguages(languages) {
+    var langsArray = (0, _utils.toArray)(languages).filter(function (lang) {
+      return !opts.languages.has(lang);
+    });
 
-              if (langs.length) {
-                _context3.next = 4;
-                break;
-              }
+    return Promise.all(langsArray.map(function (lang) {
+      return _axios2.default.get(makeUrl(getDownloadUrl(), lang)).then(function (res) {
+        return res.data;
+      }).then(function (data) {
+        opts.languages.set(lang, {
+          enabled: true,
+          data: data
+        });
 
-              return _context3.abrupt('return', false);
-
-            case 4:
-              newLangs = langs.filter(function (lang) {
-                return !languages.has(lang);
-              });
-              packs = [];
-
-              if (isCustom) {
-                _context3.next = 12;
-                break;
-              }
-
-              _context3.next = 9;
-              return downloadLangs(languagesUrl, newLangs);
-
-            case 9:
-              packs = _context3.sent;
-              _context3.next = 13;
-              break;
-
-            case 12:
-              packs = newLangs.map(function (lang) {
-                return {
-                  lang: lang,
-                  data: []
-                };
-              });
-
-            case 13:
-              packs.forEach(function (pack) {
-                return addLanguage([pack.lang, { 'enabled': 1, 'available': 1, 'data': pack.data }]);
-              });
-
-              return _context3.abrupt('return', true);
-
-            case 15:
-            case 'end':
-              return _context3.stop();
-          }
-        }
-      }, _callee3, undefined);
+        return getLanguages()[0];
+      });
     }));
+  };
+  var addCustomLanguages = function addCustomLanguages(languages) {
+    var langsArray = (0, _utils.toArray)(languages).filter(function (lang) {
+      return !opts.languages.has(lang);
+    });
 
-    return function setLanguages(_x4, _x5, _x6) {
-      return _ref3.apply(this, arguments);
+    langsArray.forEach(function (language) {
+      return opts.languages.set(language, {
+        enabled: true,
+        data: []
+      });
+    });
+
+    return getLanguages();
+  };
+  var removeLanguages = function removeLanguages(languages) {
+    var langsArray = (0, _utils.toArray)(languages);
+
+    langsArray.forEach(function (lang) {
+      return opts.languages.delete(lang);
+    });
+
+    return getLanguages();
+  };
+
+  var getWords = function getWords(language) {
+    if (!opts.languages.has(language)) return [];
+    return opts.languages.get(language).data;
+  };
+  var updateAllWords = function updateAllWords() {
+    var allWords = getLanguages().reduce(function (all, lang) {
+      var words = opts.languages.get(lang).data;
+      return all.concat(words);
+    }, []).map(function (word) {
+      return (0, _utils.escapeSymbols)(word);
+    });
+
+    opts.allWords = allWords;
+
+    return allWords;
+  };
+  var addWords = function addWords(language, words) {
+    if (!opts.languages.has(language)) return [];
+    var wordsArray = (0, _utils.toArray)(words);
+
+    var languageObj = opts.languages.get(language);
+    languageObj.data = [].concat(_toConsumableArray(new Set(languageObj.data.concat(wordsArray))));
+    opts.languages.set(language, languageObj);
+
+    return getWords(language);
+  };
+  var removeWords = function removeWords(language, words) {
+    if (!opts.languages.has(language)) return [];
+    var wordsArray = (0, _utils.toArray)(words);
+
+    var languageObj = opts.languages.get(language);
+    languageObj.data = languageObj.data.filter(function (word) {
+      return !wordsArray.includes(word);
+    });
+
+    return getWords(language);
+  };
+
+  var getModes = function getModes() {
+    return opts.modes.filter(function (item) {
+      return item.enabled;
+    }).map(function (item) {
+      return item.name;
+    });
+  };
+  var setModes = function setModes(iModes) {
+    var modesArray = (0, _utils.toArray)(iModes).filter(function (mode) {
+      return opts.modes.find(function (item) {
+        return item.name === mode;
+      });
+    });
+
+    // toggle
+    opts.modes = opts.modes.map(function (item) {
+      var newItem = item;
+      if (modesArray.includes(newItem.name)) newItem.enabled = true;else newItem.enabled = false;
+      return newItem;
+    });
+
+    return getModes();
+  };
+
+  var run = function run(strs) {
+    var strsArray = (0, _utils.toArray)(strs);
+    var enabledModes = getModes();
+    var words = updateAllWords();
+
+    var getIndexes = function getIndexes(str, val) {
+      var indexes = [];
+      var i = -1;
+
+      while ((i = str.indexOf(val, i + 1)) !== -1) {
+        indexes.push(i);
+      }
+
+      return indexes;
     };
-  }();
-};
 
-var profanity = function () {
-  function profanity() {
-    _classCallCheck(this, profanity);
+    return strsArray.map(function (str) {
+      var badWords = words.reduce(function (all, word) {
+        var indexes = getIndexes(str, word);
+        var length = word.length;
 
-    this.enable = 1; //  1, 0  : Enabled or Disabled
+        if (indexes.length) {
+          indexes.forEach(function (index) {
+            var replaced = enabledModes.reduce(function (item, mode) {
+              var obj = {
+                mode: mode,
+                str: (0, _runMode2.default)(opts.modes, mode, word, length)
+              };
 
-    this.locales = new Map(); // Can check modes available, enabled
-    this.localesDir = null; // Url Mockup of locales location for axio.get
+              item.push(obj);
 
-    this.modes = new Map([//  Can check modes available, enabled
-    ['asterisks-obscure', { 'enabled': 1 }], ['asterisks-full', { 'enabled': 0 }], ['choice', { 'enabled': 0, data: [] }], ['funny', { 'enabled': 0, data: ['bunnies', 'butterfly', 'kitten', 'love', 'gingerly', 'flowers', 'puppy', 'joyful', 'rainbows', 'unicorn'] }], ['grawlix', { 'enabled': 0 }], ['spaces', { 'enabled': 0 }], ['black', { 'enabled': 0 }], ['hide', { 'enabled': 0 }], ['beep', { 'enabled': 0 }]]);
+              return item;
+            }, []);
 
-    this.wholeWord = 0;
-  }
-
-  // Utils
-
-
-  _createClass(profanity, [{
-    key: 'makeUrl',
-    value: function makeUrl() {
-      var locale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (this.localesDir !== null) {
-        return this.localesDir.replace(/\[locale\]/g, locale);
-      } else {
-        (0, _utils.logger)('Locale provided is undefined or null, Usage: .makeUrl(<string>)');
-      }
-    }
-
-    // updateLocalesFromDir(dir) {
-    //   let path = require('path'),
-    //         fs = require('fs');
-    //
-    //   let files = fs.readdirSync(dir);
-    //   files.forEach((file) => {
-    //     let options = this.locales.get(file);
-    //
-    //     try {
-    //       options.data = fs.readFileSync(`${dir}/${file}`, 'utf8');
-    //       this.locales.set(file, options);
-    //     } catch (err) {
-    //       logger(`Couldn't read ${file}`);
-    //     }
-    //   });
-    //
-    //   logger('Updated Locales');
-    // }
-
-
-    // I\O
-    //Setters
-
-    //Set locales dir
-
-  }, {
-    key: 'setLocalesDir',
-    value: function setLocalesDir() {
-      var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (dir !== null) {
-        this.localesDir = dir;
-
-        // if (this.env == 'server') {
-        //   this.updateLocalesFromDir(dir);
-        // }
-      } else {
-        (0, _utils.logger)('Invalid locales dir provided');
-      }
-    }
-  }, {
-    key: 'setLocales',
-    value: function setLocales() {
-      var locales = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      var _this = this;
-
-      var isCustom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      var isAdd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-      var self = this;
-      locales = (0, _utils.toArray)(locales);
-
-      if (!isAdd) {
-        self.locales.clear();
-      }
-
-      //Process Locales
-      var processLocale = function processLocale(item) {
-        var _self$locales;
-
-        (_self$locales = self.locales).set.apply(_self$locales, _toConsumableArray(item));
-      };
-
-      //Prepare locales
-      if (locales.length) {
-        locales.filter(function (locale) {
-          return !_this.locales.has(locale);
-        }).forEach(function (locale) {
-          if (!isCustom) {
-            var url = _this.makeUrl(locale);
-
-            _axios2.default.get(url).then(function (response) {
-              processLocale([locale, { 'enabled': 1, 'available': 1, 'data': response.data }]);
-            }).catch(function (response) {
-              (0, _utils.logger)('Tried to download locale but catched an error', response);
+            all.push({
+              word: word,
+              index: index,
+              length: length,
+              replaced: replaced
             });
-          } else {
-            processLocale([locale, { 'enabled': 1, 'available': 1, 'data': [] }]);
-          }
-        });
-      } else {
-        (0, _utils.logger)('Provided empty string or array, Usage: .downloadLocales(<string/array>)');
-      }
-    }
-  }, {
-    key: 'setModes',
-    value: function setModes() {
-      var _this2 = this;
-
-      var modes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-      if (modes !== null) {
-        modes = (0, _utils.toArray)(modes);
-
-        [].concat(_toConsumableArray(this.modes.keys())).forEach(function (mode) {
-          var enabled = 0;
-          var options = _this2.modes.get(mode);
-
-          if (modes.includes(mode)) {
-            enabled = 1;
-          }
-
-          options.enabled = enabled;
-          _this2.modes.set(mode, options);
-        });
-
-        (0, _utils.logger)('Added Modes', modes);
-      } else {
-        (0, _utils.logger)('setModes received null');
-      }
-    }
-  }, {
-    key: 'addChoices',
-    value: function addChoices() {
-      var _options$data;
-
-      var words = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      var isAdd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-
-      words = (0, _utils.toArray)(words);
-
-      var options = this.modes.get('choice');
-      if (!isAdd) {
-        options.data = [];
-      }
-      (_options$data = options.data).push.apply(_options$data, _toConsumableArray(words));
-      options.data = [].concat(_toConsumableArray(new Set(options.data)));
-      this.modes.set('choice', options);
-
-      return options.data;
-    }
-  }, {
-    key: 'addWords',
-    value: function addWords() {
-      var locale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      var words = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      var isAdd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-      words = (0, _utils.toArray)(words);
-
-      if (this.locales.has(locale)) {
-        var _options$data2;
-
-        var options = this.locales.get(locale);
-        if (!isAdd) {
-          options.data = [];
+          });
         }
-        (_options$data2 = options.data).push.apply(_options$data2, _toConsumableArray(words));
-        options.data = [].concat(_toConsumableArray(new Set(options.data)));
 
-        this.locales.set(locale, options);
-
-        return options.data;
-      } else {
-        (0, _utils.logger)('addWords: this locale doesnt exist, you might need to setLocales first');
-      }
-    }
-  }, {
-    key: 'removeWords',
-    value: function removeWords() {
-      var locale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      var words = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-      words = (0, _utils.toArray)(words);
-
-      if (this.locales.has(locale)) {
-        var options = this.locales.get(locale);
-        options.data = options.data.filter(function (word) {
-          return !words.includes(word);
-        });
-        this.locales.set(locale, options);
-
-        return options.data;
-      } else {
-        (0, _utils.logger)('removeWords: this locale doesnt exist, you might need to setLocales first');
-      }
-    }
-
-    //Getters
-
-  }, {
-    key: 'getLocales',
-    value: function getLocales() {
-      return [].concat(_toConsumableArray(this.locales.keys()));
-    }
-  }, {
-    key: 'getLocalesEnabled',
-    value: function getLocalesEnabled() {
-      var _this3 = this;
-
-      return [].concat(_toConsumableArray(this.locales.keys())).filter(function (locale) {
-        return _this3.locales.get(locale).enabled;
-      });
-    }
-  }, {
-    key: 'getModes',
-    value: function getModes() {
-      return [].concat(_toConsumableArray(this.modes.keys()));
-    }
-  }, {
-    key: 'getModesEnabled',
-    value: function getModesEnabled() {
-      var _this4 = this;
-
-      return [].concat(_toConsumableArray(this.modes.keys())).filter(function (mode) {
-        return _this4.modes.get(mode).enabled;
-      });
-    }
-
-    //Profanity behavior
-
-  }, {
-    key: 'proceed',
-    value: function proceed() {
-      var _this5 = this;
-
-      var strings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      strings = (0, _utils.toArray)(strings);
-
-      //Locales
-      var localesEnabled = [].concat(_toConsumableArray(this.locales.keys())).filter(function (locale) {
-        return _this5.locales.get(locale).enabled;
-      });
-      var localesAllWords = localesEnabled.reduce(function (allLocales, locale) {
-        allLocales.push.apply(allLocales, _toConsumableArray(_this5.locales.get(locale).data));
-        return allLocales;
+        return all;
       }, []);
 
-      //Modes
-      var modesEnabled = [].concat(_toConsumableArray(this.modes.keys())).filter(function (mode) {
-        return _this5.modes.get(mode).enabled;
-      });
+      var final = enabledModes.reduce(function (item, mode) {
+        var modified = item;
+        var newStr = str;
 
-      var processed = strings.map(function (string) {
-        return modesEnabled.map(function (mode) {
-          var toProcess = string;
-
-          localesAllWords.forEach(function (word) {
-            word = (0, _utils.escapeSymbols)(word);
-            var isIncluded = toProcess.match(new RegExp(word, 'gi'));
-            if (isIncluded !== null && isIncluded.length > 0) {
-              (function () {
-                var wordLength = word.length;
-                var replaceStr = function () {
-                  switch (mode) {
-                    case 'choice':
-                      {
-                        var list = _this5.modes.get('choice').data;
-                        return list[(0, _utils.randomRange)(0, list.length)] || '';
-                      }
-                    case 'funny':
-                      {
-                        var _list = _this5.modes.get('funny').data;
-                        return _list[(0, _utils.randomRange)(0, _list.length)] || '';
-                      }
-                    case 'spaces':
-                      {
-                        return ' '.repeat(wordLength);
-                      }
-                    case 'black':
-                      {
-                        return '&#9632;'.repeat(wordLength);
-                      }
-                    case 'asterisks-full':
-                      {
-                        return '*'.repeat(wordLength);
-                      }
-                    case 'asterisks-obscure':
-                      {
-                        return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
-                      }
-                    case 'beep':
-                      {
-                        return 'BEEP';
-                      }
-                    case 'grawlix':
-                      {
-                        var _ret2 = function () {
-                          var grawlixChars = ['!', '@', '#', '$', '%', '~', '*'];
-                          return {
-                            v: word.split('').map(function (char) {
-                              return grawlixChars[(0, _utils.randomRange)(0, grawlixChars.length)];
-                            }).join('')
-                          };
-                        }();
-
-                        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
-                      }
-                    case 'hide':
-                      {
-                        return '';
-                      }
-                    //asterisks-obscure
-                    default:
-                      {
-                        return word[0] + '*'.repeat(wordLength - 2) + word[word.length - 1];
-                      }
-                  }
-                }();
-
-                toProcess = function () {
-                  var reqexp = new RegExp(word, 'gi');
-                  if (_this5.wholeWord) {
-                    reqexp = new RegExp('\\b' + word + '\\b', 'gi');
-                  }
-
-                  return toProcess.replace(reqexp, replaceStr);
-                }();
-              })();
-            }
-          });
-
-          return toProcess;
+        badWords.forEach(function (badWord) {
+          var replacedStr = badWord.replaced.find(function (v) {
+            return v.mode === mode;
+          }).str;
+          newStr = newStr.replace(new RegExp(badWord.word, 'i'), replacedStr);
         });
-      });
 
-      var whatIsReturn = (0, _utils.whatIs)(processed);
-      return whatIsReturn == 'Array' && processed.length == 1 ? processed[0] : processed;
-    }
-  }]);
+        modified[mode] = newStr;
 
-  return profanity;
-}();
+        return modified;
+      }, {});
 
-;
+      return final;
+    });
+  };
 
-exports.default = profanity;
+  return _extends({}, ctrl, {
+    getDownloadUrl: getDownloadUrl,
+    setDownloadUrl: setDownloadUrl,
+    getLanguages: getLanguages,
+    addLanguages: addLanguages,
+    addCustomLanguages: addCustomLanguages,
+    removeLanguages: removeLanguages,
+    getWords: getWords,
+    addWords: addWords,
+    removeWords: removeWords,
+    getModes: getModes,
+    setModes: setModes,
+    run: run
+  });
+};
+
+exports.default = Profanity;
 
 /***/ }),
 /* 10 */
@@ -1560,89 +1095,87 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _utils = __webpack_require__(7);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var makeBundle = function makeBundle(arr, i, times) {
-  var bundleStr = [];
+var _control = __webpack_require__(8);
 
-  for (var c = 0; c < times; c++) {
-    bundleStr.push(arr[i + c] || '');
-  }bundleStr = bundleStr.join('');
-  return bundleStr;
+var _control2 = _interopRequireDefault(_control);
+
+var _utils = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var makeBundle = function makeBundle(chars, index, f) {
+  var bundleChars = [];
+
+  for (var c = 0; c < f; c += 1) {
+    var char = chars[index + c] || '';
+    bundleChars.push(char);
+  }
+
+  var joined = bundleChars.join('');
+
+  return joined;
 };
-var frequencyCheck = function frequencyCheck(strs, frequency) {
-  return strs.map(function (str) {
-    var times = frequency;
+var bundleCheck = function bundleCheck(str, frequency) {
+  var chars = str.split('').reverse();
+  var checkedChars = [];
 
-    var _loop = function _loop(i) {
-      var reverted = str.split('').reverse();
-      var newArr = [];
+  chars.map(function (char, index) {
+    var bundle = makeBundle(chars, index, frequency);
+    var future = makeBundle(chars, index + frequency, frequency);
 
-      reverted.forEach(function (char, i1) {
-        var bundle = makeBundle(reverted, i1, times);
-        var future = makeBundle(reverted, i1 + times, times);
+    if (bundle !== future) checkedChars.push(char);
 
-        if (bundle !== future) newArr.push(char);
-      });
-      str = newArr.reverse().join('');
-    };
-
-    for (var i = 0; i < times; i++) {
-      _loop(i);
-    }
-
-    return str.replace(/(.)\1{3,}/g, '$1$1$1');
+    return true;
   });
+
+  var checked = checkedChars.reverse().join('');
+
+  return checked;
 };
 
-var Spam = function Spam() {
-  var enabled = false;
-  var frequency = 3;
+var regexpCheck = function regexpCheck(str) {
+  return str.replace(/(.)\1{3,}/g, '$1$1$1');
+};
 
-  var enable = function enable() {
-    return enabled = true;
-  };
-  var disable = function disable() {
-    return enabled = false;
-  };
-  var status = function status() {
-    return enabled;
-  };
-  var setFrequency = function setFrequency(f) {
-    return frequency = f;
-  };
+var Spam = function Spam(inputOpts) {
+  var ctrl = (0, _control2.default)(inputOpts);
+
+  var opts = _extends({
+    frequency: 3
+  }, inputOpts);
+
   var getFrequency = function getFrequency() {
-    return frequency;
+    return opts.frequency;
+  };
+  var setFrequency = function setFrequency(frequency) {
+    return opts.frequency = frequency;
   };
   var run = function run() {
     var strs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-    if (!enabled || !frequency) return strs;
+    var strsArray = (0, _utils.toArray)(strs);
 
-    strs = (0, _utils.toArray)(strs);
-    var checked = frequencyCheck(strs, frequency);
+    if (!ctrl.isEnabled() || !getFrequency()) return strsArray;
+
+    var checked = strsArray.map(function (str) {
+      return bundleCheck(str, getFrequency());
+    }).map(function (str) {
+      return regexpCheck(str);
+    });
 
     return checked;
   };
 
-  return {
-    enable: enable,
-    disable: disable,
-    status: status,
-    setFrequency: setFrequency,
+  return _extends({}, ctrl, {
     getFrequency: getFrequency,
+    setFrequency: setFrequency,
     run: run
-  };
+  });
 };
 
 exports.default = Spam;
-
-// const spam = new Spam()
-// console.log('status', spam.status())
-// console.log('enable', spam.enable())
-// console.log('status', spam.status())
-// console.log('getFrequency', spam.getFrequency())
-// console.log('run', spam.run('qwlfdkqwopjdqoiwjdoqw'))
 
 /***/ }),
 /* 11 */
@@ -1658,7 +1191,7 @@ module.exports = __webpack_require__(12);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(7);
 var Axios = __webpack_require__(14);
 var defaults = __webpack_require__(1);
 
@@ -1693,9 +1226,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(3);
+axios.Cancel = __webpack_require__(4);
 axios.CancelToken = __webpack_require__(13);
-axios.isCancel = __webpack_require__(4);
+axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -1716,7 +1249,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var Cancel = __webpack_require__(3);
+var Cancel = __webpack_require__(4);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1933,7 +1466,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(19);
-var isCancel = __webpack_require__(4);
+var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(1);
 
 /**
@@ -2043,7 +1576,7 @@ module.exports = function enhanceError(error, config, code, response) {
 "use strict";
 
 
-var createError = __webpack_require__(5);
+var createError = __webpack_require__(6);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -2487,6 +2020,402 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _utils = __webpack_require__(2);
+
+var emptyList = {
+  data: []
+};
+
+var modeFunny = function modeFunny(modes) {
+  var mode = modes.find(function (item) {
+    return item.name === 'funny';
+  }) || emptyList;
+  var data = mode.data;
+  return data[(0, _utils.randomRange)(0, data.length)] || '';
+};
+var modeSpaces = function modeSpaces(length) {
+  return ' '.repeat(length);
+};
+var modeBlack = function modeBlack(length) {
+  return '&#9632;'.repeat(length);
+};
+var modeAsterisksFull = function modeAsterisksFull(length) {
+  return '*'.repeat(length);
+};
+var modeAsterisksObscure = function modeAsterisksObscure(word, length) {
+  return word[0] + '*'.repeat(length - 2) + word[word.length - 1];
+};
+var modeBeep = function modeBeep() {
+  return 'BEEP';
+};
+var modeGrawlix = function modeGrawlix(modes, word) {
+  var mode = modes.find(function (item) {
+    return item.name === 'grawlix';
+  }) || emptyList;
+  var data = mode.data;
+  return word.split('').map(function () {
+    return data[(0, _utils.randomRange)(0, data.length)];
+  }).join('');
+};
+var modeHide = function modeHide() {
+  return '';
+};
+
+var runMode = function runMode(modes, mode, word, length) {
+  switch (mode) {
+    case 'funny':
+      {
+        return modeFunny(modes);
+      }
+    case 'spaces':
+      {
+        return modeSpaces(length);
+      }
+    case 'black':
+      {
+        return modeBlack(length);
+      }
+    case 'asterisks-full':
+      {
+        return modeAsterisksFull(length);
+      }
+    case 'asterisks-obscure':
+      {
+        return modeAsterisksObscure(word, length);
+      }
+    case 'beep':
+      {
+        return modeBeep();
+      }
+    case 'grawlix':
+      {
+        return modeGrawlix(modes, word);
+      }
+    case 'hide':
+      {
+        return modeHide();
+      }
+    default:
+      {
+        return modeGrawlix(modes, word);
+      }
+  }
+};
+
+exports.default = runMode;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * type-name - Just a reasonable typeof
+ *
+ * https://github.com/twada/type-name
+ *
+ * Copyright (c) 2014-2016 Takuto Wada
+ * Licensed under the MIT license.
+ *   https://github.com/twada/type-name/blob/master/LICENSE
+ */
+
+
+var toStr = Object.prototype.toString;
+
+function funcName (f) {
+    if (f.name) {
+        return f.name;
+    }
+    var match = /^\s*function\s*([^\(]*)/im.exec(f.toString());
+    return match ? match[1] : '';
+}
+
+function ctorName (obj) {
+    var strName = toStr.call(obj).slice(8, -1);
+    if ((strName === 'Object' || strName === 'Error') && obj.constructor) {
+        return funcName(obj.constructor);
+    }
+    return strName;
+}
+
+function typeName (val) {
+    var type;
+    if (val === null) {
+        return 'null';
+    }
+    type = typeof val;
+    if (type === 'object') {
+        return ctorName(val);
+    }
+    return type;
+}
+
+module.exports = typeName;
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = [
+	{
+		"name": "asterisks-obscure",
+		"enabled": true,
+		"data": []
+	},
+	{
+		"name": "asterisks-full",
+		"enabled": false,
+		"data": []
+	},
+	{
+		"name": "funny",
+		"enabled": false,
+		"data": [
+			"bunnies",
+			"butterfly",
+			"kitten",
+			"love",
+			"gingerly",
+			"flowers",
+			"puppy",
+			"joyful",
+			"rainbows",
+			"unicorn"
+		]
+	},
+	{
+		"name": "grawlix",
+		"enabled": false,
+		"data": [
+			"!",
+			"@",
+			"#",
+			"$",
+			"%",
+			"~",
+			"*"
+		]
+	},
+	{
+		"name": "spaces",
+		"enabled": false,
+		"data": []
+	},
+	{
+		"name": "black",
+		"enabled": false,
+		"data": []
+	},
+	{
+		"name": "hide",
+		"enabled": false,
+		"data": []
+	},
+	{
+		"name": "beep",
+		"enabled": false,
+		"data": []
+	}
+];
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

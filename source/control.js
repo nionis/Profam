@@ -1,5 +1,9 @@
-const Control = (inputOpts: object): Function => {
-  const opts = {
+// @flow
+
+const Control = (inputOpts: Object): Object => {
+  const opts: {
+    enabled: boolean;
+  } = {
     enabled: false,
     ...inputOpts,
   }

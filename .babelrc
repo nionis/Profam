@@ -10,6 +10,14 @@
     ],
     "stage-0"
   ],
+  "env": {
+    "test": {
+      "plugins": [
+        "syntax-flow",
+        "tcomb",
+      ]
+    }
+  },
   "plugins": [
     "transform-flow-strip-types"
   ]

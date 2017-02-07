@@ -1,29 +1,29 @@
 import webpack from 'webpack'
 import path from 'path'
 
-const uglify = webpack.optimize.UglifyJsPlugin
-const define = webpack.DefinePlugin
+const Uglify = webpack.optimize.UglifyJsPlugin
+const Define = webpack.DefinePlugin
 const dirSrc = path.join(__dirname, 'source')
 const dirDist = path.join(__dirname, 'distribution')
 const srcIndex = path.join(dirSrc, 'index.js')
 const libName = 'profam'
 
 
-const create = env => {
+const create = (env) => {
   const ENV = env.mode || 'production'
   const isUgly = env.ugly === 'true' || false
-  const isProd = ENV === 'production'
-  const isDev = ENV === 'development'
+  // const isProd = ENV === 'production'
+  // const isDev = ENV === 'development'
 
   const config = {
-    entry : srcIndex,
+    entry: srcIndex,
 
     output: {
-      path : dirDist,
-      filename : libName,
-      library : libName,
-      libraryTarget : 'umd',
-      umdNamedDefine : true
+      path: dirDist,
+      filename: libName,
+      library: libName,
+      libraryTarget: 'umd',
+      umdNamedDefine: true,
     },
 
     module: {
@@ -31,23 +31,23 @@ const create = env => {
         {
           test: /(\.jsx|\.js)$/,
           use: 'babel-loader',
-          exclude: /(node_modules|bower_components)/
+          exclude: /(node_modules|bower_components)/,
         },
-      ]
+      ],
     },
 
-    plugins : [
-      new define({
+    plugins: [
+      new Define({
         'process.env': {
-          'NODE_ENV': JSON.stringify(ENV)
-        }
-      })
-    ]
+          NODE_ENV: JSON.stringify(ENV),
+        },
+      }),
+    ],
   }
 
   if (isUgly) {
     config.plugins = config.plugins.concat([
-      new uglify({ minimize: true })
+      new Uglify({ minimize: true }),
     ])
   }
   config.output.filename += isUgly ? '.min.js' : '.js'

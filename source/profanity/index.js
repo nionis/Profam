@@ -1,3 +1,5 @@
+// @flow
+
 import axios from 'axios'
 import Control from '../control'
 import runMode from './runMode'
@@ -9,10 +11,10 @@ const makeUrl = (url: string, lang: string): string => (
   url.replace(/\[language\]/gi, lang)
 )
 
-const Profanity = (inputOpts: object): Function => {
-  const ctrl: object = Control(inputOpts)
+const Profanity = (inputOpts: Object): Object => {
+  const ctrl: Object = Control(inputOpts)
 
-  const opts: object = {
+  const opts: Object = {
     languages: new Map(),
     allWords: [],
     downloadUrl: '/languages/[language].json',
@@ -20,27 +22,12 @@ const Profanity = (inputOpts: object): Function => {
     ...inputOpts,
   }
 
-  const updateAllWords = (): array<string> => {
-    const allWords = (
-      getLanguages()
-        .reduce((all, lang) => {
-          const words = opts.languages.get(lang).data
-          return all.concat(words)
-        }, [])
-        .map(word => escapeSymbols(word))
-    )
-
-    opts.allWords = allWords
-
-    return allWords
-  }
-
   const getDownloadUrl = (): string => opts.downloadUrl
   const setDownloadUrl = (url: string): string => (opts.downloadUrl = url)
 
-  const getLanguages = (): array<string> => [...opts.languages.keys()]
-  const addLanguages = (languages: mixed): promise => {
-    const langsArray: array<string> = (
+  const getLanguages = (): Array<string> => [...opts.languages.keys()]
+  const addLanguages = (languages: any): Promise<Array<string>> => {
+    const langsArray: Array<string> = (
       toArray(languages)
         .filter(lang => !opts.languages.has(lang))
     )
@@ -55,14 +42,13 @@ const Profanity = (inputOpts: object): Function => {
               data,
             })
 
-            updateAllWords()
             return getLanguages()[0]
           })
       )),
     )
   }
-  const addCustomLanguages = (languages: mixed): array => {
-    const langsArray: array<string> = (
+  const addCustomLanguages = (languages: any): Array<string> => {
+    const langsArray: Array<string> = (
       toArray(languages)
         .filter(lang => !opts.languages.has(lang))
     )
@@ -74,58 +60,70 @@ const Profanity = (inputOpts: object): Function => {
       })
     ))
 
-    updateAllWords()
     return getLanguages()
   }
-  const removeLanguages = (languages: mixed): array<string> => {
-    const langsArray: array<string> = toArray(languages)
+  const removeLanguages = (languages: any): Array<string> => {
+    const langsArray: Array<string> = toArray(languages)
 
     langsArray.forEach(lang => opts.languages.delete(lang))
 
     return getLanguages()
   }
 
-  const getWords = (language: string): array<string> => {
-    if (!opts.languages.has(language)) return false
+  const getWords = (language: string): Array<string> => {
+    if (!opts.languages.has(language)) return []
     return opts.languages.get(language).data
   }
-  const addWords = (language: string, words: array<string>): array<string> => {
-    if (!opts.languages.has(language)) return false
-    const wordsArray: array<string> = toArray(words)
+  const updateAllWords = (): Array<string> => {
+    const allWords = (
+      getLanguages()
+        .reduce((all, lang) => {
+          const words = opts.languages.get(lang).data
+          return all.concat(words)
+        }, [])
+        .map(word => escapeSymbols(word))
+    )
 
-    const languageObj = opts.languages.get(language)
+    opts.allWords = allWords
+
+    return allWords
+  }
+  const addWords = (language: string, words: any): Array<string> => {
+    if (!opts.languages.has(language)) return []
+    const wordsArray: Array<string> = toArray(words)
+
+    const languageObj: {
+      enabled: boolean;
+      data: Array<string>;
+    } = opts.languages.get(language)
     languageObj.data = [...new Set(languageObj.data.concat(wordsArray))]
     opts.languages.set(language, languageObj)
 
-    updateAllWords()
-
     return getWords(language)
   }
-  const removeWords = (language: string, words: array<string>): array<string> => {
-    if (!opts.languages.has(language)) return false
-    const wordsArray: array<string> = toArray(words)
+  const removeWords = (language: string, words: any): Array<string> => {
+    if (!opts.languages.has(language)) return []
+    const wordsArray: Array<string> = toArray(words)
 
     const languageObj = opts.languages.get(language)
     languageObj.data = languageObj.data.filter(word => !wordsArray.includes(word))
 
-    updateAllWords()
-
     return getWords(language)
   }
 
-  const getModes = (): array<string> => (
+  const getModes = (): Array<string> => (
     opts.modes
       .filter(item => item.enabled)
       .map(item => item.name)
   )
-  const setModes = (iModes: mixed): array<string> => {
-    const modesArray: array<string> = (
+  const setModes = (iModes: any): Array<string> => {
+    const modesArray: Array<string> = (
       toArray(iModes)
         .filter(mode => opts.modes.find(item => item.name === mode))
     )
 
     // toggle
-    opts.modes = opts.modes.map((item: object) => {
+    opts.modes = opts.modes.map((item: Object) => {
       const newItem = item
       if (modesArray.includes(newItem.name)) newItem.enabled = true
       else newItem.enabled = false
@@ -135,13 +133,13 @@ const Profanity = (inputOpts: object): Function => {
     return getModes()
   }
 
-  const run = (strs: mixed): object => {
-    const strsArray: array<string> = toArray(strs)
-    const enabledModes: array<string> = getModes()
-    const words: array<string> = opts.allWords
+  const run = (strs: any): Array<Object> => {
+    const strsArray: Array<string> = toArray(strs)
+    const enabledModes: Array<string> = getModes()
+    const words: Array<string> = updateAllWords()
 
 
-    const getIndexes = (str, val) => {
+    const getIndexes = (str, val): Array<number> => {
       const indexes = []
       let i = -1
 
@@ -152,8 +150,8 @@ const Profanity = (inputOpts: object): Function => {
       return indexes
     }
 
-    return strsArray.map((str: string) => {
-      const badWords = words.reduce((all, word) => {
+    return strsArray.map((str: string): Object => {
+      const badWords: Array<Object> = words.reduce((all, word) => {
         const indexes = getIndexes(str, word)
         const length = word.length
 
@@ -182,7 +180,7 @@ const Profanity = (inputOpts: object): Function => {
         return all
       }, [])
 
-      const final = enabledModes.reduce((item, mode) => {
+      const final: Object = enabledModes.reduce((item, mode): Object => {
         const modified = item
         let newStr = str
 
@@ -200,7 +198,6 @@ const Profanity = (inputOpts: object): Function => {
     })
   }
 
-  updateAllWords()
 
   return {
     ...ctrl,

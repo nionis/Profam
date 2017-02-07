@@ -1,11 +1,13 @@
+// @flow
+
 import whatIs from 'type-name'
 
 
-export const removeFromArray = (arr: array = [], item: mixed): array => (
+export const removeFromArray = (arr: Array<mixed> = [], item: mixed): Array<mixed> => (
   arr.filter((x: mixed) => x !== item)
 )
 
-export const toArray = (item: mixed = null): array => {
+export const toArray = (item: any = null): Array<any> => {
   const is: string = whatIs(item)
   const isArray: boolean = is === 'Array'
   const isNumber: boolean = is === 'number'
