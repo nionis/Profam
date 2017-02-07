@@ -1,57 +1,72 @@
+// @flow
+
 import { toArray } from './utils'
 
 
-class spam {
-  constructor() {
-    this.enable    = 0;
-    this.frequency = 3;
+const makeBundle = (chars: Array<string>, index: number, f: number) => {
+  const bundleChars: Array<string> = []
+
+  for (let c = 0; c < f; c += 1) {
+    const char: string = chars[index + c] || ''
+    bundleChars.push(char)
   }
 
-  // I\O
-  setFrequency(f) {
-    this.frequency = f;
+  const joined: string = bundleChars.join('')
+
+  return joined
+}
+const bundleCheck = (str: string, frequency: number): string => {
+  const chars: Array<string> = str.split('').reverse()
+  const checkedChars: Array<string> = []
+
+  chars.map((char: string, index: number): boolean => {
+    const bundle: string = makeBundle(chars, index, frequency)
+    const future: string = makeBundle(chars, index + frequency, frequency)
+
+    if (bundle !== future) checkedChars.push(char)
+
+    return true
+  })
+
+  const checked: string = checkedChars.reverse().join('')
+
+  return checked
+}
+
+const regexpCheck = (str: string): string => (
+  str.replace(/(.)\1{3,}/g, '$1$1$1')
+)
+
+const Spam = (inputOpts: Object = {}): Object => {
+  const opts: {
+    frequency: number;
+  } = {
+    frequency: 3,
+    ...inputOpts,
   }
 
-  // Spam functionality
-  proceed(strings=[]) {
-    strings = toArray(strings);
+  const getFrequency: number = () => opts.frequency
+  const setFrequency: number = frequency => (opts.frequency = frequency)
+  const run = (strs: any = []): Array<string> => {
+    const strsArray: Array<string> = toArray(strs)
 
-    return strings.map((str) => {
-      let frequencyCheck = (str) => {
-        let times = this.frequency;
+    if (!getFrequency()) return strsArray
 
-        for (let i=0; i<times; i++) {
-          let reverted = str.split('').reverse();
-          let newArr = [];
+    const checked: Array<string> = (
+      strsArray
+        .map(str => bundleCheck(str, getFrequency()))
+        .map(str => regexpCheck(str))
+    )
 
-          reverted.forEach(function(char, i1) {
-            let bundle = makeBundle(reverted, i1				, times);
-            let future = makeBundle(reverted, i1 + times, times);
-
-            if (bundle !== future) {
-              newArr.push(char);
-            }
-          });
-          str = newArr.reverse().join('');
-        }
-
-        return str;
-      };
-
-      let makeBundle = (arr, i, times) => {
-        let bundleStr = [];
-
-        for (let c=0; c<times; c++) {
-          bundleStr.push((arr[i+c] || ''));
-        }
-
-        bundleStr = bundleStr.join('');
-        return bundleStr;
-      };
-
-      return frequencyCheck(str.replace(/(.)\1{3,}/g, '$1$1$1'));
-    });
+    return checked
   }
-};
 
-export default spam;
+  return {
+    getFrequency,
+    setFrequency,
+    run,
+  }
+}
+
+
+export default Spam

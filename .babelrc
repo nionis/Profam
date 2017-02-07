@@ -1,9 +1,24 @@
 {
   "presets": [
-    "es2015",
+    [
+      "env",
+      {
+        "include": [
+          "transform-async-to-generator"
+        ]
+      }
+    ],
     "stage-0"
   ],
+  "env": {
+    "test": {
+      "plugins": [
+        "syntax-flow",
+        "tcomb",
+      ]
+    }
+  },
   "plugins": [
-    "array-includes"
+    "transform-flow-strip-types"
   ]
 }

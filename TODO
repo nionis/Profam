@@ -1,5 +1,4 @@
--> better readme
--> add proper tests
--> better syntax
--> some refactoring
--> add backend compatibility
+-> tests
+  - jest node only
+  - other optimization
+  - jest watch mode

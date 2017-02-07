@@ -4,11 +4,11 @@ All in One Profanity and Spam Tool, supporting multiple languages and modes.
 ## Thanks to:
 - [Shutterstock Project](https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words), for provading all the bad words!
 
-## Tools Available
-| Tool | Use | Default Status |
-| --- | --- | --- |
-| Profanity | Used to censor words using the selected modes. | Enabled |
-| Spam | Uses an algorithm to stop repeating characters. | Disabled |
+## Tools Overview
+Tool | Use
+---- | ----
+Profanity | Used to censor words using selected modes
+Spam | Uses an algorithm to stop repeating characters
 
 
 ## How to
@@ -17,59 +17,55 @@ All in One Profanity and Spam Tool, supporting multiple languages and modes.
 ### Quick Start
 
 ```javascript
-import profam from 'profam';
+// Initialize
+import { profanity, spam } from 'profam'
 
-//Initialize
-let profam = new profam();
+// Profanity
+// set download url
+profanity.setDownloadUrl('https://static.gamingforgood.net/assets/profanityLocales/[language].json')
 
-//(server) Changing localesDir will update locales with the contents of the dir
-//profam.profanity.setLocalesDir('/locales/'); ( in the works )
-//OR
-//(client) Assuming you are hosting languages on your own, you will need to specify a get-url mockup.
-profam.profanity.setLocalesDir('/locales/[locale].json');
+// Now that we have specified languages url you can start adding languages
+profanity.addLanguages('en')
 
-//Now that you have a get-url mockup you can start adding languages, and profam will take care of the rest.
-profam.profanity.setLocales('en');
+// Now English is added, bad-words in English will be censored according to the mode selected
+// To change profanity mode:
+profanity.setModes('funny')
 
-//Now english is added, bad-words in english will be replaced with the default mode's text. To change it:
-profam.profanity.setModes('funny');
+// Bad-words will be replaced with funny words using funny mode.
+profanity.run('Go to hell!') // --> Go to unicorn!
 
-//Bad-words will be replaced with funny words using funny mode.
-profam.process('Go to hell!'); // returns-> Go to unicorn!.
-
-
-// ---> Done! Now bad-words in english will be censored! Lets say you want to add a custom language:
-profam.profanity.setLocales('customLanguage', true);        // -> 2nd param: marks it as custom
-//OR
-profam.profanity.setLocales('customLanguage', true, true);  // -> 3rd param: simply *adds* a new language, instead of replacing english.
+// Adding custom words
+profanity.addCustomLanguages('Klingon')
 
 //Adding words to your custom language:
-profam.profanity.addWords('customLanguage', ['badword']);
+profanity.addWords('Klingon', ['Hu\'tegh', 'baktag'])
+
+// Spam
+spam.run('trolololololololololol') // --> trolol
 ```
 
 
 ## In-Depth all methods
 
-### Profanity Tool
-|	Method	|	Parameters	|	Use	|	Default	|
-|	-----	|	-----	|	-----	|	-----	|
-|	profanity.enable =	|	Boolean	|	Enable or disable profanity	|	TRUE	|
-|	profanity.setLocalesDir(\<string\>)	|	String	|	Replaces [locale] with the language you want to download. Ex: yoursite.com/locales/[locale].js	|	null	|
-|	profanity.setLocales(\<string/array\>, \<true/false\>, \<true/false\>	|	<ol><li>Locales(s)</li><li>is custom</li><li>keep existing</li></ol>	|	Add the languages you wonna look for bad-words	|	<ol><li>Empty</li><li>false</li><li>false</li></ol>	|
-|	profanity.addWords(\<string\>, \<array\>, \<boolean\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol><ol><li>Add</li></ol>	|	Add new words in selected locale.	|		|
-|	profanity.removeWords(\<string\>, \<array\>)	|	<ol><li>Locale</li></ol><ol><li>Words</li></ol>	|	Remove words from locale.	|		|
-|	profanity.setModes(\<string/array\>)	|	<ol><li>Mode(s)</li></ol>	|	Set Modes	|	asterisks-obscure	|
-|	profanity.getLocales()	|		|	Get Locales	|		|
-|	profanity.getLocalesEnabled()	|		|	Get Locales Enabled	|		|
-|	profanity.getModes()	|		|	Get Modes	|		|
-|	profanity.getModesEnabled()	|		|	Get Modes Enabled	|		|
+### Profanity Methods
+| Method | Use |
+| ----- | ----- |
+| profanity.getDownloadUrl() | Returns download url |
+| profanity.setDownloadUrl(string) | Sets download url |
+| profanity.getLanguages() | Returns array of language downloaded |
+| profanity.addLanguages(string/array) | Returns a promise and downlods languages |
+| profanity.addCustomLanguages(string/array) | Adds custom languages |
+| profanity.removeLanguages(string/array) | Removes languages |
+| profanity.getWords(string(language)) | Returns bad-words used by language |
+| profanity.addWords(string(language), string/array) | Adds words to language |
+| profanity.removeWords(string(language), string/array) | Removes words in language |
+| profanity.getModes() | Returns enabled modes |
+| profanity.setModes(string/array) | Enables modes |
+| profanity.run(string/array) | Returns array of object for each string keyed by mode used |
 
 ### Spam Tool
-|	Method	|	Parameters	|	Use	|	Default	|
-|	-----	|	-----	|	-----	|	-----	|
-|	spam.enable	|	Boolean	|	Enable or disable Spam	|	FALSE	|
-
-### Profam
-|	Method	|	Parameters	|	Use	|	Default	|
-|	-----	|	-----	|	-----	|	-----	|
-|	.proceed(\<string\>)	|	String	|	Return censored string	|		|
+| Method | Use |
+| ----- | ----- |
+| spam.getFrequency() | Returns frequency used in algorithm |
+| spam.setFrequency(number) | Sets frequency used in algorithm |
+| spam.run(string/array) | Returns array of strings |
