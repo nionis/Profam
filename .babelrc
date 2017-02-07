@@ -1,9 +1,16 @@
 {
   "presets": [
-    "es2015",
+    [
+      "env",
+      {
+        "include": [
+          "transform-async-to-generator"
+        ]
+      }
+    ],
     "stage-0"
   ],
   "plugins": [
-    "array-includes"
+    "transform-flow-strip-types"
   ]
 }

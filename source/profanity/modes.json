@@ -1,0 +1,42 @@
+[
+  {
+    "name": "asterisks-obscure",
+    "enabled": true,
+    "data": []
+  },
+  {
+    "name": "asterisks-full",
+    "enabled": false,
+    "data": []
+  },
+  {
+    "name": "funny",
+    "enabled": false,
+    "data": ["bunnies", "butterfly", "kitten", "love", "gingerly", "flowers", "puppy", "joyful", "rainbows", "unicorn"]
+  },
+  {
+    "name": "grawlix",
+    "enabled": false,
+    "data": ["!","@","#","$","%","~","*"]
+  },
+  {
+    "name": "spaces",
+    "enabled": false,
+    "data": []
+  },
+  {
+    "name": "black",
+    "enabled": false,
+    "data": []
+  },
+  {
+    "name": "hide",
+    "enabled": false,
+    "data": []
+  },
+  {
+    "name": "beep",
+    "enabled": false,
+    "data": []
+  }
+]

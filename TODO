@@ -1,5 +1,4 @@
+-> tests
+  - jest node only
+
 -> better readme
--> add proper tests
--> better syntax
--> some refactoring
--> add backend compatibility
