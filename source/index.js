@@ -4,7 +4,7 @@ import Profanity from './profanity'
 import Spam from './spam'
 
 
-export default {
+export {
   Profanity,
   Spam,
 }

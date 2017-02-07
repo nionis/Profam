@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -390,7 +390,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(26);
+var normalizeHeaderName = __webpack_require__(25);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -481,7 +481,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
 
 /***/ }),
 /* 2 */
@@ -495,7 +495,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.escapeSymbols = exports.randomRange = exports.toArray = exports.removeFromArray = undefined;
 
-var _typeName = __webpack_require__(31);
+var _typeName = __webpack_require__(30);
 
 var _typeName2 = _interopRequireDefault(_typeName);
 
@@ -540,12 +540,12 @@ var escapeSymbols = exports.escapeSymbols = function escapeSymbols(str) {
 
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(18);
-var buildURL = __webpack_require__(21);
-var parseHeaders = __webpack_require__(27);
-var isURLSameOrigin = __webpack_require__(25);
+var settle = __webpack_require__(17);
+var buildURL = __webpack_require__(20);
+var parseHeaders = __webpack_require__(26);
+var isURLSameOrigin = __webpack_require__(24);
 var createError = __webpack_require__(6);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(20);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(19);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -641,7 +641,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(23);
+      var cookies = __webpack_require__(22);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -761,7 +761,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(17);
+var enhanceError = __webpack_require__(16);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -809,62 +809,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var Control = function Control(inputOpts) {
-  var opts = _extends({
-    enabled: false
-  }, inputOpts);
-
-  var enable = function enable() {
-    return opts.enabled = true;
-  };
-  var disable = function disable() {
-    return opts.enabled = false;
-  };
-  var isEnabled = function isEnabled() {
-    return opts.enabled;
-  };
-  var status = function status() {
-    return opts.enabled;
-  };
-
-  return {
-    enable: enable,
-    disable: disable,
-    isEnabled: isEnabled,
-    status: status
-  };
-};
-
-exports.default = Control;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _axios = __webpack_require__(11);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _control = __webpack_require__(8);
-
-var _control2 = _interopRequireDefault(_control);
-
-var _runMode = __webpack_require__(29);
+var _runMode = __webpack_require__(28);
 
 var _runMode2 = _interopRequireDefault(_runMode);
 
 var _utils = __webpack_require__(2);
 
-var _modes = __webpack_require__(32);
+var _modes = __webpack_require__(31);
 
 var _modes2 = _interopRequireDefault(_modes);
 
@@ -876,8 +831,8 @@ var makeUrl = function makeUrl(url, lang) {
   return url.replace(/\[language\]/gi, lang);
 };
 
-var Profanity = function Profanity(inputOpts) {
-  var ctrl = (0, _control2.default)(inputOpts);
+var Profanity = function Profanity() {
+  var inputOpts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var opts = _extends({
     languages: new Map(),
@@ -1066,7 +1021,7 @@ var Profanity = function Profanity(inputOpts) {
     });
   };
 
-  return _extends({}, ctrl, {
+  return {
     getDownloadUrl: getDownloadUrl,
     setDownloadUrl: setDownloadUrl,
     getLanguages: getLanguages,
@@ -1079,13 +1034,13 @@ var Profanity = function Profanity(inputOpts) {
     getModes: getModes,
     setModes: setModes,
     run: run
-  });
+  };
 };
 
 exports.default = Profanity;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1097,13 +1052,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _control = __webpack_require__(8);
-
-var _control2 = _interopRequireDefault(_control);
-
 var _utils = __webpack_require__(2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var makeBundle = function makeBundle(chars, index, f) {
   var bundleChars = [];
@@ -1139,8 +1088,8 @@ var regexpCheck = function regexpCheck(str) {
   return str.replace(/(.)\1{3,}/g, '$1$1$1');
 };
 
-var Spam = function Spam(inputOpts) {
-  var ctrl = (0, _control2.default)(inputOpts);
+var Spam = function Spam() {
+  var inputOpts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var opts = _extends({
     frequency: 3
@@ -1157,7 +1106,7 @@ var Spam = function Spam(inputOpts) {
 
     var strsArray = (0, _utils.toArray)(strs);
 
-    if (!ctrl.isEnabled() || !getFrequency()) return strsArray;
+    if (!getFrequency()) return strsArray;
 
     var checked = strsArray.map(function (str) {
       return bundleCheck(str, getFrequency());
@@ -1168,23 +1117,23 @@ var Spam = function Spam(inputOpts) {
     return checked;
   };
 
-  return _extends({}, ctrl, {
+  return {
     getFrequency: getFrequency,
     setFrequency: setFrequency,
     run: run
-  });
+  };
 };
 
 exports.default = Spam;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(11);
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1192,7 +1141,7 @@ module.exports = __webpack_require__(12);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
-var Axios = __webpack_require__(14);
+var Axios = __webpack_require__(13);
 var defaults = __webpack_require__(1);
 
 /**
@@ -1227,14 +1176,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(4);
-axios.CancelToken = __webpack_require__(13);
+axios.CancelToken = __webpack_require__(12);
 axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(28);
+axios.spread = __webpack_require__(27);
 
 module.exports = axios;
 
@@ -1243,7 +1192,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1307,7 +1256,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1315,10 +1264,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(1);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(15);
-var dispatchRequest = __webpack_require__(16);
-var isAbsoluteURL = __webpack_require__(24);
-var combineURLs = __webpack_require__(22);
+var InterceptorManager = __webpack_require__(14);
+var dispatchRequest = __webpack_require__(15);
+var isAbsoluteURL = __webpack_require__(23);
+var combineURLs = __webpack_require__(21);
 
 /**
  * Create a new instance of Axios
@@ -1399,7 +1348,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1458,14 +1407,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(19);
+var transformData = __webpack_require__(18);
 var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(1);
 
@@ -1544,7 +1493,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1570,7 +1519,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1602,7 +1551,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1629,7 +1578,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1672,7 +1621,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1747,7 +1696,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1766,7 +1715,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1826,7 +1775,7 @@ module.exports = (
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1847,7 +1796,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1922,7 +1871,7 @@ module.exports = (
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1941,7 +1890,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1985,7 +1934,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2019,7 +1968,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2114,7 +2063,7 @@ var runMode = function runMode(modes, mode, word, length) {
 exports.default = runMode;
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2300,7 +2249,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2349,7 +2298,7 @@ module.exports = typeName;
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = [
@@ -2415,7 +2364,7 @@ module.exports = [
 ];
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2424,21 +2373,20 @@ module.exports = [
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Spam = exports.Profanity = undefined;
 
-var _profanity = __webpack_require__(9);
+var _profanity = __webpack_require__(8);
 
 var _profanity2 = _interopRequireDefault(_profanity);
 
-var _spam = __webpack_require__(10);
+var _spam = __webpack_require__(9);
 
 var _spam2 = _interopRequireDefault(_spam);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
-  Profanity: _profanity2.default,
-  Spam: _spam2.default
-};
+exports.Profanity = _profanity2.default;
+exports.Spam = _spam2.default;
 
 /***/ })
 /******/ ]);
