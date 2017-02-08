@@ -9,13 +9,15 @@ const srcIndex = path.join(dirSrc, 'index.js')
 const libName = 'profam'
 
 
-const create = (env) => {
+const create = (env, target) => {
   const ENV = env.mode || 'production'
   const isUgly = env.ugly === 'true' || false
   // const isProd = ENV === 'production'
   // const isDev = ENV === 'development'
 
   const config = {
+    target,
+
     entry: srcIndex,
 
     output: {
@@ -23,7 +25,6 @@ const create = (env) => {
       filename: libName,
       library: libName,
       libraryTarget: 'umd',
-      umdNamedDefine: true,
     },
 
     module: {
@@ -47,15 +48,27 @@ const create = (env) => {
 
   if (isUgly) {
     config.plugins = config.plugins.concat([
-      new Uglify({ minimize: true }),
+      new Uglify({
+        minimize: true,
+        sourceMap: true,
+        output: {
+          comments: false,
+        },
+        compressor: {
+          warnings: false,
+        },
+      }),
     ])
   }
+  config.output.filename += target === 'node' ? '.node' : ''
   config.output.filename += isUgly ? '.min.js' : '.js'
   config.devtool = 'source-map'
-
 
   return config
 }
 
 
-module.exports = create
+module.exports = env => [
+  create(env, 'node'),
+  create(env, 'web'),
+]

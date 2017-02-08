@@ -25,7 +25,7 @@ import { profanity, spam } from 'profam'
 profanity.setDownloadUrl('https://static.gamingforgood.net/assets/profanityLocales/[language].json')
 
 // Now that we have specified languages url you can start adding languages
-profanity.addLanguages('en')
+profanity.addLanguages('en') // --> this is async returns a promise
 
 // Now English is added, bad-words in English will be censored according to the mode selected
 // To change profanity mode:
@@ -45,7 +45,7 @@ spam.run('trolololololololololol') // --> trolol
 ```
 
 
-## In-Depth all methods
+## API
 
 ### Profanity Methods
 | Method | Use |
@@ -69,3 +69,45 @@ spam.run('trolololololololololol') // --> trolol
 | spam.getFrequency() | Returns frequency used in algorithm |
 | spam.setFrequency(number) | Sets frequency used in algorithm |
 | spam.run(string/array) | Returns array of strings |
+
+
+## Languages
+| Name       | Code |
+| ---------- | ---- |
+| Arabic     | ar   |
+| Chinese    | zh   |
+| Czech      | cs   |
+| Danish     | da   |
+| Dutch      | nl   |
+| English    | en   |
+| Esperanto  | eo   |
+| Finnish    | fi   |
+| French     | fr   |
+| German     | de   |
+| Hindi      | hi   |
+| Hungarian  | hu   |
+| Italian    | it   |
+| Japanese   | ja   |
+| Klingon    | tlh  |
+| Korean     | ko   |
+| Norwegian  | no   |
+| Persian    | fa   |
+| Polish     | pl   |
+| Portuguese | pt   |
+| Russian    | ru   |
+| Spanish    | es   |
+| Swedish    | sv   |
+| Thai       | th   |
+| Turkish    | tr   |
+
+## Modes
+| Name | Output |
+| ----- | ----- |
+| asterisks-obscure | w**d!! |
+| asterisks-full | ****!! |
+| funny | unicorn!! |
+| grawlix | !#%@!! |
+| spaces | &nbsp;&nbsp;&nbsp;&nbsp;!! |
+| black | &#9632;&#9632;&#9632;&#9632;!! |
+| hide | !! |
+| beep | BEEP!! |
